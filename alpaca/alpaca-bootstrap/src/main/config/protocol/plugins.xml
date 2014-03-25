@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugins xmlns="http://protocol.servicebus.alpaca.vdrinkup.net/plugins">
+	<plugin protocol="ws">
+		<config-processor>net.vdrinkup.alpaca.ws.WsConfigProcessor
+		</config-processor>
+		<connection-server>net.vdrinkup.alpaca.ws.WsServerConnector
+		</connection-server>
+		<connection-client>net.vdrinkup.alpaca.ws.WsClientConnector
+		</connection-client>
+	</plugin>
+	<plugin protocol="http">
+		<config-processor>net.vdrinkup.alpaca.http.HttpConfigProcessor
+		</config-processor>
+		<connection-server>net.vdrinkup.alpaca.http.HttpServerConnector
+		</connection-server>
+	</plugin>
+</plugins>

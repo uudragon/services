@@ -1,0 +1,15 @@
+SQLElementDefinition
+SQLExpressionNode
+SQLIfDefinition
+SQLInDefinition
+SQLInsertDefinition
+SQLOutDefinition
+SQLSelectDefinition
+SQLUpdateDefinition
+EffectCountDefinition
+SQLResultSetDefinition
+SQLDeleteDefinition
+SQLCollectionDefinition
+SQLIdDefinition
+SQLBatchUpdateDefinition
+SQLForeachDefinition

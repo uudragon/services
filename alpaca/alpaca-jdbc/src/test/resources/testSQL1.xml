@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" from="flow:workstationSetting_in/save_setting" type="sql" to="dms:workstationSetting_out">
+	<in>
+	</in>
+	<out>
+		<select>
+			insert into ib_sowing.Desk_Info (DESK_NO, IS_USED, CAN_USED, MAC, IP) 
+			values (
+				<element binding="deskNo" type="string"/>,
+				<element binding="isUsed" type="int"/>,
+				<element binding="canUsed" type="int"/>,
+				<element binding="mac" type="string"/>,
+				<element binding="ip" type="string"/>
+			)
+		</select>
+	</out> 
+</messageset>

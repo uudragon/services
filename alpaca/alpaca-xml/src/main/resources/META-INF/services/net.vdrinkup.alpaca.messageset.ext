@@ -1,0 +1,2 @@
+ext.name=xml
+config.processor=net.vdrinkup.alpaca.messageset.xml.XMLMsgConfigProcessor

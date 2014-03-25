@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transformer xmlns="http://alpaca.vdrinkup.net/transform" from="" to="" fromType="resultset" toType="sdo" direction="response">
+	<transform param="ID" metadata="ID"/>
+	<transform param="CONTAINER_NO" metadata="CONTAINER_NO"/>
+	<transform param="CONTAINER_MARK" metadata="COMTAINER_MARK"/>
+	<transform param="TASK_NO" metadata="TASK_NO"/>
+	<transform param="TASK_TYPE" metadata="TASK_TYPE"/>
+	<transform param="TASK_STATUS" metadata="TASK_STATUS"/>
+</transformer>

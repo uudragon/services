@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transformer xmlns="http://alpaca.vdrinkup.net/configuration" from="" to="" fromType="" toType="">
+	select * from test_table where 
+	<aaa xmlns:pp="">
+	id=<transform metadata="orgNo"/>
+	and 
+	name=<transform metadata=""/>
+	and 
+	date <![CDATA[<]]> now()
+	</aaa>
+	<bbb/>
+</transformer>

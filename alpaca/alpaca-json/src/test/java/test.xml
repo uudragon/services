@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration"
+	xmlns:wms3="http://wms3.360buy.com" from="protocol:recommand" type="json"
+	to="flow:recommand">
+	<in binding="test">
+		<!-- <element name="containerNo" binding="containerNo" type="string"
+			length="" />
+		<element name="taskNo" binding="goodNo" type="string" length="" />
+		<element name="taskType" binding="taskType" type="int" length="" />
+		<element name="containerMark" binding="containerMark" type="int"
+			length="" />
+		<element name="bizNode" binding="bizNode" type="int" length="" />
+		<element name="orgNo" binding="orgNo" type="string" length="" />
+		<element name="distributeNo" binding="distributeNo" type="string"
+			length="" />
+		<element name="warehouseNo" binding="warehouseNo" type="string"
+			length="" />
+		<element name="details" binding="details" type="list"
+			maxOccurs="1" minOccurs="1">
+			<element name="containerNo" binding="containerNo" />
+			<element name="destZone" binding="destZone" />
+			<element name="taskNo" binding="taskNo" />
+			<element name="goodsNo" binding="goodsNo" />
+			<element name="goodsName" binding="goodsName" />
+			<element name="stockLevel" binding="stockLevel" />
+			<element name="packingUnit" binding="packingUnit" />
+			<element name="packingQty" binding="packingQty" />
+			<element name="qty" binding="qty" />
+			<element name="bizCode" binding="bizCode" />
+			<element name="bizType" binding="bizType" />
+			<element name="lotNo" binding="lotNo" />
+		</element> -->
+		<element name="orgNo" binding="orgNo" type="string" />
+		<element name="distributeNo" binding="distributeNo" type="string" />
+		<element name="warehouseNo" binding="warehouseNo" type="string" />
+		<element name="mqDestination" binding="mqDestination" type="string" />
+		<element name="msgId" binding="msgId" type="string" />
+		<element name="processType" binding="processType" type="string" />
+		<element name="fromMsgServiceNo" binding="fromMsgServiceNo" type="string" />
+		<element name="fromNodeNo" binding="fromNodeNo" type="string" />
+		<element name="toMsgServiceNo" binding="toMsgServiceNo" type="string" />
+		<element name="toNodeNo" binding="toNodeNo" type="string" />
+		<element name="businessNo" binding="businessNo" type="string" />
+		<element name="dataType" binding="dataType" type="string" />
+		<element name="businessData" binding="businessData">
+			<element name="id" binding="id" type="string" />
+			<element name="containerNo" binding="containerNo" type="string" />
+			<element name="containerMark" binding="containerMark" type="int" />
+			<element name="taskNo" binding="taskNo" type="string" />
+			<element name="taskType" binding="taskType" type="int" />
+			<element name="bizNode" binding="bizNode" type="int" />
+			<element name="orgNo" binding="orgNo" type="string" />
+			<element name="distributeNo" binding="distributeNo" type="string" />
+			<element name="warehouseNo" binding="warehouseNo" type="string" />
+			<element name="details" binding="details" type="list">
+				<element name="goodsNo" binding="goodsNo" type="string" />
+				<element name="goodsName" binding="goodsName" type="string" />
+				<element name="lotNo" binding="lotNo" type="string" />
+				<element name="packingUnit" binding="packingUnit" type="string" />
+				<element name="stockLevel" binding="stockLevel" type="int" />
+				<element name="containerNo" binding="containerNo" type="string" />
+				<element name="taskNo" binding="taskNo" type="string" />
+				<element name="bizCode" binding="bizCode" type="string" />
+				<element name="bizType" binding="bizType" type="int" />
+				<element name="qty" binding="qty" type="BigDecimal" />
+				<element name="destZone" binding="destZone" type="string"/>
+			</element>
+		</element>
+		<element name="processResult" binding="processResult" type="boolean" />
+	</in>
+	<out>
+		<element name="orgNo" binding="orgNo" type="string" />
+		<element name="distributeNo" binding="distributeNo" type="string" />
+		<element name="warehouseNo" binding="warehouseNo" type="string" />
+		<element name="mqDestination" binding="mqDestination" type="string" />
+		<element name="msgId" binding="msgId" type="string" />
+		<element name="processType" binding="processType" type="string" />
+		<element name="fromMsgServiceNo" binding="fromMsgServiceNo" type="string" />
+		<element name="fromNodeNo" binding="fromNodeNo" type="string" />
+		<element name="toMsgServiceNo" binding="toMsgServiceNo" type="string" />
+		<element name="toNodeNo" binding="toNodeNo" type="string" />
+		<element name="businessNo" binding="businessNo" type="string" />
+		<element name="dataType" binding="dataType" type="string" />
+		<element name="businessData" binding="businessData" type="object">
+			<element name="id" binding="id" type="string" />
+			<element name="containerNo" binding="containerNo" type="string" />
+			<element name="containerMark" binding="containerMark" type="int" />
+			<element name="taskNo" binding="taskNo" type="string" />
+			<element name="taskType" binding="taskType" type="int" />
+			<element name="bizNode" binding="bizNode" type="int" />
+			<element name="orgNo" binding="orgNo" type="string" />
+			<element name="distributeNo" binding="distributeNo" type="string" />
+			<element name="warehouseNo" binding="warehouseNo" type="string" />
+			<element name="details" binding="details" type="list">
+				<element name="goodsNo" binding="goodsNo" type="string" />
+				<element name="goodsName" binding="goodsName" type="string" />
+				<element name="lotNo" binding="lotNo" type="string" />
+				<element name="packingUnit" binding="packingUnit" type="string" />
+				<element name="stockLevel" binding="stockLevel" type="int" />
+				<element name="containerNo" binding="containerNo" type="string" />
+				<element name="taskNo" binding="taskNo" type="string" />
+				<element name="bizCode" binding="bizCode" type="string" />
+				<element name="bizType" binding="bizType" type="int" />
+				<element name="qty" binding="qty" type="BigDecimal" />
+				<element name="destZone" binding="destZone" type="string"/>
+			</element>
+		</element>
+		<element name="processResult" binding="processResult" type="boolean" />
+		<!-- <element name="containerNo" binding="containerNo" type="string" length="" 
+			/> <element name="taskNo" binding="goodNo" type="string" length="" /> <element 
+			name="taskType" binding="taskType" type="int" length="" /> <element name="containerMark" 
+			binding="containerMark" type="int" length="" /> <element name="bizNode" binding="bizNode" 
+			type="int" length="" /> <element name="orgNo" binding="orgNo" type="string" 
+			length="" /> <element name="distributeNo" binding="distributeNo" type="string" 
+			length="" /> <element name="warehouseNo" binding="warehouseNo" type="string" 
+			length="" /> -->
+	</out>
+</messageset>

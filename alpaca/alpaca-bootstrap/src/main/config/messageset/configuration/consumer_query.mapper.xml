@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" from="flow:consumer_saved"
+	type="sql" to="dms:bam/consumer_query">
+	<in>
+		<resultset binding="consumers">
+			<element name="ID" binding="id" type="long" />
+                	<element name="CODE" binding="code" type="string" />
+                	<element name="TYPE" binding="type" type="int" />
+                	<element name="NAME" binding="name" type="string" />
+                	<element name="SEX" binding="sex" type="int" />
+                	<element name="BIRTHDAY" binding="birthday" type="string" />
+                	<element name="PARENT" binding="parent" type="string" />
+                	<element name="P_SEX" binding="p_sex" type="int" />
+                	<element name="PROVINCE" binding="province" type="string" />
+                	<element name="CITY" binding="city" type="string" />
+                	<element name="DISTRICT" binding="district" type="string" />
+                	<element name="STREET" binding="street" type="string" />
+                	<element name="ADDRESS" binding="address" type="string" />
+                	<element name="POST" binding="post" type="string" />
+               		<element name="F_PHONE" binding="f_phone" type="string" />
+                	<element name="C_PHONE" binding="c_phone" type="string" />
+                	<element name="MOBILE" binding="mobile" type="string" />
+                	<element name="MAIN_PHONE" binding="mainPhone" type="int"/>
+                	<element name="FAX" binding="fax" type="string"/>
+			<element name="STATUS" binding="status" type="int"/>	
+		</resultset>
+	</in>
+	<out>
+		<select>
+			SELECT 
+				C.ID,C.CODE,C.TYPE,C.NAME,C.SEX,C.BIRTHDAY,
+				C.PARENT,C.P_SEX,C.PROVINCE,C.CITY,C.DISTRICT,
+				C.STREET,C.ADDRESS,C.POST,C.F_PHONE,C.C_PHONE,
+				C.MOBILE,C.MAIN_PHONE,C.FAX,C.STATUS
+			FROM
+				T_CONSUMER C
+			WHERE
+				YN=0
+				<if>
+					<mvel>in['id'] != null</mvel>
+					AND
+					<element name="C.ID" binding="id" type="long" symbol="="/>
+				</if>
+				<if>
+                                        <mvel>in['name'] != null</mvel>
+                                        AND
+					<element name="C.NAME" binding="name" type="string" symbol="="/>
+                                </if>
+				<if>
+                                        <mvel>in[''] != null</mvel>
+                                        AND
+					<element name="C.ID" binding="id" type="long"/>
+                                </if>
+			)
+		</select>
+	</out>
+</messageset>

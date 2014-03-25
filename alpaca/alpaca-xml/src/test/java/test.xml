@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration"
+	xmlns:wms3="http://wms3.360buy.com" from="protocol:recommand" type="xml"
+	to="flow:recommand">
+	<in>
+		<element name="recommandRequest" namespace="http://sowing.wms.jd.com">
+			<element name="containerNo" binding="containerNo" type="string" length="" />
+			<element name="goodsNo" binding="goodNo" type="string" length="" />
+			<element name="deskNo" binding="destNo" type="string" length="" />
+			<element name="oneByOne" binding="oneByOne" type="string" length="" />
+			<element name="details" maxOccurs="1" minOccurs="1">
+				<element name="shipmentDetail" binding="details" >
+					<element name="id" binding="id" type="string"/>
+					<element name="name" binding="name" type="string"/>
+					<element name="infos">
+						<element name="info" binding="infos" root="true">
+							<element name="id" binding="id"/>
+						</element>
+					</element>
+				</element>
+			</element>
+		</element>
+	</in>
+	<out>
+		<element name="recommandResponse" namespace="http://sowing.wms.jd.com">
+			<element name="containerNo" binding="containerNo" type="string" length="" />
+			<element name="goodsNo" binding="goodNo" type="string" length="" />
+			<element name="deskNo" binding="destNo" type="string" length="" />
+			<element name="oneByOne" binding="oneByOne" type="string" length="" />
+			<element name="details" maxOccurs="1" minOccurs="1">
+				<element name="shipmentDetail" binding="details" >
+					<element name="id" binding="id" type="string"/>
+					<element name="infos">
+						<element name="info" binding="infos" root="true">
+							<element name="id" binding="id"/>
+						</element>
+					</element>
+				</element>
+			</element>
+		</element>
+	</out>
+</messageset>

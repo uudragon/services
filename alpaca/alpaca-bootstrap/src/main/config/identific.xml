@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<identific xmlns="http://alpaca.vdrinkup.net/configuration">
+	<from uri="protocol:bam.channel/consumer_saved">
+		<to uri="flow:consumer_saved" mode="sync"/>
+	</from>
+</identific>

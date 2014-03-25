@@ -1,0 +1,2 @@
+ext.name=json
+config.processor=net.vdrinkup.alpaca.messageset.json.JsonConfigProcessor

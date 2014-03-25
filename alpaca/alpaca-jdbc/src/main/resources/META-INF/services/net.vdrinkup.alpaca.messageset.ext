@@ -1,0 +1,2 @@
+ext.name=sql
+config.processor=net.vdrinkup.alpaca.sql.SQLMsgConfigProcessor
