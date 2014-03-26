@@ -13,7 +13,6 @@ import javax.xml.bind.annotation.XmlTransient;
 import net.vdrinkup.alpaca.configuration.Processor;
 import net.vdrinkup.alpaca.sql.processor.SQLForeachProcessor;
 
-
 /**
  *
  * <p></p>
@@ -23,9 +22,29 @@ import net.vdrinkup.alpaca.sql.processor.SQLForeachProcessor;
 @XmlRootElement( name = "foreach" )
 public class SQLForeachDefinition extends AbstractSQLDefinition {
 	@XmlAttribute
+	private String open = "";
+	@XmlAttribute
+	private String close = "";
+	@XmlAttribute
 	private String separator;
 	@XmlTransient
 	private volatile Processor processor;
+
+	public String getOpen() {
+		return open;
+	}
+
+	public void setOpen( String open ) {
+		this.open = open;
+	}
+
+	public String getClose() {
+		return close;
+	}
+
+	public void setClose( String close ) {
+		this.close = close;
+	}
 
 	public String getSeparator() {
 		return separator;

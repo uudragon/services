@@ -12,7 +12,6 @@ import java.util.List;
 
 import net.vdrinkup.alpaca.dms.Session;
 
-
 /**
  * 抽象SQL脚本
  * <p></p>
@@ -30,7 +29,7 @@ public abstract class AbstractSQLSession implements Session {
 	 * 是否写入脚本，此标识用于批量插入时控制后续脚本的写入
 	 */
 	protected boolean writeScript = true;
-			
+	
 	public CharArrayWriter getScript() {
 		return script;
 	}

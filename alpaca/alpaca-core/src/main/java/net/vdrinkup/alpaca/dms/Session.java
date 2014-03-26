@@ -6,6 +6,9 @@
  *******************************************************************************/
 package net.vdrinkup.alpaca.dms;
 
+import java.io.CharArrayWriter;
+import java.util.List;
+
 import net.vdrinkup.alpaca.quality.transaction.Transaction;
 
 /**
@@ -15,6 +18,20 @@ import net.vdrinkup.alpaca.quality.transaction.Transaction;
  * Date 2014-2-17
  */
 public interface Session {
+	/**
+	 * 获得SQL脚本
+	 * @return
+	 */
+	public CharArrayWriter getScript();
+	/**
+	 * 获得参数列表
+	 * @return
+	 */
+	public List< Object > getParameters();
+	/**
+	 * 设置参数列表
+	 */
+	public void setParameters( List< Object > parameters );
 	/**
 	 * 运行脚本
 	 * <p>
