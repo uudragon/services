@@ -36,19 +36,14 @@ public abstract class AbstractProcessor< T extends ProcessorDefinition > impleme
 	}
 
 	@Override
-	public void process( DataContext context ) {
-		if ( ! ContextStatus.VALID.equals( context.getStatus() ) ) {
-			if ( LOG.isDebugEnabled() ) {
-				LOG.debug( "The status of current context is [{}], it will be return.", context.getStatus().name() );
-			}
-			return;
-		}
+	public void process( DataContext context ) throws Exception {
 		try {
 			handle( context );
 		} catch ( Exception e ) {
 			LOG.error( "Process error.", e );
 			context.setException( e );
 			context.setStatus( ContextStatus.EXCEPTION );
+			throw e;
 		}
 	}
 	

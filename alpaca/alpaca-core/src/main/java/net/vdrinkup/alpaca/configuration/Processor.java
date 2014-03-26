@@ -17,6 +17,6 @@ import net.vdrinkup.alpaca.context.DataContext;
  */
 public interface Processor {
 	
-	public void process( DataContext context );
+	public void process( DataContext context ) throws Exception;
 
 }

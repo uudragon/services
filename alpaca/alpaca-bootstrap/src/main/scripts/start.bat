@@ -18,7 +18,7 @@ if not ""%1"" == ""jpda"" goto noJpda
 set JPDA=jpda
 if not "%JPDA_ADDRESS%" == "" goto gotJpdaAddress
 set JPDA_ADDRESS=65535
-:goJpdaAddress
+:gotJpdaAddress
 if not "%JPDA_SUSPEND%" == "" goto gotJpdaSuspend
 set JPDA_SUSPEND=n
 :gotJpdaSuspend

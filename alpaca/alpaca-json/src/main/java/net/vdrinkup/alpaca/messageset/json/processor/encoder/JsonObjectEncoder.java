@@ -24,7 +24,7 @@ import net.vdrinkup.alpaca.messageset.json.processor.JsonEncoder;
  */
 public class JsonObjectEncoder implements JsonEncoder {
 	
-	public void encode( DataContext context, MessageNode definition ) {
+	public void encode( DataContext context, MessageNode definition ) throws Exception {
 		DataObject sdo = context.getIn();
 		if ( definition.getBinding() != null && !"".equals( definition.getBinding() ) ) {
 			DataObject subSdo = sdo.getDataObject( definition.getBinding() );

@@ -74,7 +74,7 @@ public class JsonListEncoder implements JsonEncoder {
 	private class InnerObjectEncoder implements JsonEncoder {
 
 		@Override
-		public void encode( DataContext context, MessageNode definition ) {
+		public void encode( DataContext context, MessageNode definition ) throws Exception {
 			final ByteArrayOutputStream baos = context.getOut();
 			baos.write( JsonConstants.L_BRACES );
 			MessageNode el = null;

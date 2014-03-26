@@ -25,69 +25,67 @@ import net.vdrinkup.alpaca.service.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
- *
- * <p></p>
- * @author pluto.bing.liu
- * Date 2014-2-17
+ * 
+ * <p>
+ * </p>
+ * 
+ * @author pluto.bing.liu Date 2014-2-17
  */
 public class JdbcDmsProxyService implements ProxyService {
-	
-	private static Logger LOG = LoggerFactory.getLogger( JdbcDmsProxyService.class );
-	
+
+	private static Logger LOG = LoggerFactory
+			.getLogger(JdbcDmsProxyService.class);
+
 	@Override
-	public void invoke( DataContext context ) throws InvokeException {
-		//获得报文配置定义
-		final String fromName= context.getProperty( ContextConstants.FROM_NAME, String.class );
-		final String toName = context.getProperty( ContextConstants.TO_NAME, String.class );
-		final String defId = fromName.concat( "_" ).concat( toName );
-		MessageDefinition definition = MessageSetConfigManager.getInstance().lookup( defId );
-		context.setProperty( MessageSetConstants.MESSAGE_DIRECTION, MessageDirection.OUT );
-		definition.getOut().createProcessor().process( context );
+	public void invoke(DataContext context) throws InvokeException {
+		// 获得报文配置定义
+		final String fromName = context.getProperty(ContextConstants.FROM_NAME,
+				String.class);
+		final String toName = context.getProperty(ContextConstants.TO_NAME,
+				String.class);
+		final String defId = fromName.concat("_").concat(toName);
+		MessageDefinition definition = MessageSetConfigManager.getInstance()
+				.lookup(defId);
+		context.setProperty(MessageSetConstants.MESSAGE_DIRECTION,
+				MessageDirection.OUT);
 		Transaction curTransaction = null;
-		if ( context.isTransacted() ) {
-			curTransaction = context.getTransaction();
-		} else {
-			String providerName = SchemeUtil.getSchemeName( context.getProperty( ContextConstants.TO_NAME, String.class ), SchemeConstants.DMS_SCHEME );
-			Provider provider = DMSProviderManager.getInstance().lookup( providerName );
-			try {
-				curTransaction = provider.createTransaction( true );
-			} catch ( Exception e ) {
-				if ( curTransaction != null ) {
-					try {
-						curTransaction.close();
-					} catch (Exception ex) {
-						LOG.error( ex.getMessage(), ex );
-					}
-				}
-				throw new InvokeException( e );
-			}
-		}
 		try {
+			definition.getOut().createProcessor().process(context);
+			if (context.isTransacted()) {
+				curTransaction = context.getTransaction();
+			} else {
+				String providerName = SchemeUtil.getSchemeName(context
+						.getProperty(ContextConstants.TO_NAME, String.class),
+						SchemeConstants.DMS_SCHEME);
+				Provider provider = DMSProviderManager.getInstance().lookup(
+						providerName);
+				curTransaction = provider.createTransaction(true);
+			}
 			Session session = context.getOut();
-			Object obj = session.run( curTransaction );
-			context.setOut( context.getIn() );
-			context.setIn( obj );
-			context.setProperty( MessageSetConstants.MESSAGE_DIRECTION, MessageDirection.IN );
-			definition.getIn().createProcessor().process( context );
-			context.setIn( context.getOut() );
-			context.setOut( null );
-			if ( ! context.isTransacted() ) {
+			Object obj = session.run(curTransaction);
+			context.setOut(context.getIn());
+			context.setIn(obj);
+			context.setProperty(MessageSetConstants.MESSAGE_DIRECTION,
+					MessageDirection.IN);
+			definition.getIn().createProcessor().process(context);
+			context.setIn(context.getOut());
+			context.setOut(null);
+			if (!context.isTransacted()) {
 				curTransaction.commit();
 			}
-		} catch ( Exception e ) {
-			LOG.error( e.getMessage(), e );
+		} catch (Exception e) {
+			LOG.error(e.getMessage(), e);
 			try {
-				if ( ! curTransaction.isCompleted() ) {
+				if (!curTransaction.isCompleted()) {
 					curTransaction.rollback();
-					LOG.error( "The transaction is rollback." );
+					LOG.error("The transaction is rollback.");
 					curTransaction.close();
 				}
-			} catch ( Exception ex ) {
-				LOG.error( ex.getMessage(), ex );
+			} catch (Exception ex) {
+				LOG.error(ex.getMessage(), ex);
 			}
-			throw new InvokeException( e );
+			throw new InvokeException(e);
 		}
 	}
 

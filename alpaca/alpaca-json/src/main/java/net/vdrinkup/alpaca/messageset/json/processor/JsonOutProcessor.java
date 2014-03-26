@@ -11,6 +11,7 @@ import java.util.List;
 
 import net.vdrinkup.alpaca.configuration.AbstractProcessor;
 import net.vdrinkup.alpaca.context.DataContext;
+import net.vdrinkup.alpaca.data.DataObject;
 import net.vdrinkup.alpaca.messageset.json.definition.JsonOutDefinition;
 import net.vdrinkup.alpaca.messageset.json.processor.encoder.JsonListEncoder;
 import net.vdrinkup.alpaca.messageset.json.processor.encoder.JsonObjectEncoder;
@@ -32,6 +33,11 @@ public class JsonOutProcessor extends AbstractProcessor< JsonOutDefinition > {
 	protected void handle( DataContext context ) throws Exception {
 		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		context.setOut( baos );
+		if ( getDefinition().getBinding() != null && !"".equals( getDefinition().getBinding() ) ) {
+			final DataObject sdo = context.getIn();
+			final Object obj = sdo.get( getDefinition().getBinding() );
+			context.setIn( obj );
+		}
 		JsonEncoder encoder = null;
 		if ( context.getIn() instanceof List ) {
 			encoder = new JsonListEncoder();

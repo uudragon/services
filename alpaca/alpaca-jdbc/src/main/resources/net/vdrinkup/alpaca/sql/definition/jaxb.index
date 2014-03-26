@@ -11,5 +11,4 @@ SQLResultSetDefinition
 SQLDeleteDefinition
 SQLCollectionDefinition
 SQLIdDefinition
-SQLBatchUpdateDefinition
 SQLForeachDefinition
