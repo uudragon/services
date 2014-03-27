@@ -9,12 +9,15 @@ package net.vdrinkup.alpaca.sql.processor;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import net.vdrinkup.alpaca.configuration.AbstractProcessor;
 import net.vdrinkup.alpaca.context.DataContext;
 import net.vdrinkup.alpaca.data.DataFactory;
 import net.vdrinkup.alpaca.data.DataObject;
+import net.vdrinkup.alpaca.sql.CacheKey;
 import net.vdrinkup.alpaca.sql.definition.SQLCollectionDefinition;
 import net.vdrinkup.alpaca.sql.definition.SQLElementDefinition;
 import net.vdrinkup.alpaca.sql.definition.SQLResultSetDefinition;
@@ -38,48 +41,62 @@ public class SQLResultSetProcessor extends AbstractProcessor< SQLResultSetDefini
 	@Override
 	protected void handle( DataContext context ) throws Exception {
 		ResultSet rs = context.getIn();
-		Map< Object, DataObject > resultMap = new LinkedHashMap< Object, DataObject >( 16 );
+		Map< Object, DataObject > cacheResultMap = new LinkedHashMap< Object, DataObject >( 16 );
 		DataObject out = context.getOut();
 		DataObject item;
-		Object key;
 		int index = 0;
+		CacheKey cacheKey = null;
 		while ( rs.next() ) {
-			item = DataFactory.INSTANCE.create();
-			context.setOut( item );
-			if ( getDefinition().getId() != null ) {
-				getDefinition().getId().createProcessor().process( context );
-			} else {
-				key = index;
-			}
-			for ( SQLElementDefinition element : getDefinition().getElements() ) {
-				element.createProcessor().process( context );
-			}
-			context.setOut( resultMap );
-			if ( getDefinition().getCollections().size() > 0 ) { 
-				for ( SQLCollectionDefinition collection : getDefinition().getCollections() ) {
-					key = item.get( collection.getName() );
-					if ( resultMap.get( key ) == null ) {
-						key = item.get( collection.getName() );
-						resultMap.put( key, item );
-					}
-					collection.createProcessor().process( context );
+			cacheKey = createCacheKey( rs, getDefinition().getElements() );
+			item = cacheResultMap.get( cacheKey );
+			if ( item == null ) {
+				item = DataFactory.INSTANCE.create();
+				cacheResultMap.put( cacheKey, item );
+				context.setOut( item );
+				for ( SQLElementDefinition element : getDefinition().getElements() ) {
+					element.createProcessor().process( context );
 				}
-			} else {
-				resultMap.put( index, item );
+			} 
+			for ( SQLCollectionDefinition collection : getDefinition().getCollections() ) {
+				DataObject collect = DataFactory.INSTANCE.create();
+				context.setOut( collect );
+				collection.createProcessor().process( context );
+				List< DataObject > list = item.getList( collection.getBinding() );
+				if ( list == null ) {
+					list = new LinkedList< DataObject >();
+					list.add( collect );
+					item.setList( collection.getBinding(), list );
+				} else {
+					list.add( collect );
+				}
 			}
-			if ( getDefinition().isSingle() ) {
+			
+			if ( getDefinition().getFetchSize() != 0 
+					&& getDefinition().getFetchSize() <= index ) {
 				break ;
 			}
 			index++;
 		}
-		if ( resultMap.size() > 0 ) {
-			if ( getDefinition().isSingle() ) {
-				out.set( getDefinition().getBinding(), resultMap.values().iterator().next() );
-			} else {
-				out.set( getDefinition().getBinding(), new ArrayList< DataObject >( resultMap.values() ) );
+		if ( getDefinition().getFetchSize() == 1 ) {
+			out.set( getDefinition().getBinding(), cacheResultMap.values().iterator().next() );
+		} else {
+			out.set( getDefinition().getBinding(), new ArrayList< DataObject >( cacheResultMap.values() ) );
+		}
+		cacheResultMap.clear();
+		cacheResultMap = null;
+		context.setOut( out );
+	}
+	
+	private CacheKey createCacheKey( ResultSet rs, List< SQLElementDefinition > elements ) throws Exception {
+		CacheKey cacheKey = new CacheKey();
+		for ( SQLElementDefinition e : elements ) {
+			cacheKey.update( e.getName() );
+			String value = rs.getString( e.getName() );
+			if ( value != null ) {
+				cacheKey.update( value );
 			}
 		}
-		context.setOut( out );
+		return cacheKey;
 	}
 
 }

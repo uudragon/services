@@ -29,10 +29,6 @@ import net.vdrinkup.alpaca.sql.processor.SQLCollectioniProcessor;
 public class SQLCollectionDefinition extends ProcessorDefinition {
 	@XmlAttribute
 	private String binding;
-	@XmlAttribute
-	private String name;
-	@XmlElement( name = "id" )
-	private SQLIdDefinition id;
 	@XmlElement( name = "element" )
 	private List< SQLElementDefinition > elements = new LinkedList< SQLElementDefinition >();
 	@XmlElement( name = "collection" )
@@ -47,23 +43,7 @@ public class SQLCollectionDefinition extends ProcessorDefinition {
 	public void setBinding( String binding ) {
 		this.binding = binding;
 	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName( String name ) {
-		this.name = name;
-	}
-
-	public SQLIdDefinition getId() {
-		return id;
-	}
-
-	public void setId( SQLIdDefinition id ) {
-		this.id = id;
-	}
-
+	
 	public List< SQLElementDefinition > getElements() {
 		return elements;
 	}

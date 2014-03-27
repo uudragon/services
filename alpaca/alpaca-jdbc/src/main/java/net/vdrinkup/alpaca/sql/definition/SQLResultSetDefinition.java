@@ -30,9 +30,7 @@ public class SQLResultSetDefinition extends ProcessorDefinition {
 	@XmlAttribute
 	private String binding;
 	@XmlAttribute
-	private boolean single;
-	@XmlElement( name = "id" )
-	private SQLIdDefinition id;
+	private int fetchSize;
 	@XmlElement( name = "element" )
 	private List< SQLElementDefinition > elements = new LinkedList< SQLElementDefinition >();
 	@XmlElement( name = "collection" )
@@ -48,20 +46,12 @@ public class SQLResultSetDefinition extends ProcessorDefinition {
 		this.binding = binding;
 	}
 
-	public boolean isSingle() {
-		return single;
+	public int getFetchSize() {
+		return fetchSize;
 	}
 
-	public void setSingle( boolean single ) {
-		this.single = single;
-	}
-	
-	public SQLIdDefinition getId() {
-		return id;
-	}
-
-	public void setId( SQLIdDefinition id ) {
-		this.id = id;
+	public void setFetchSize(int fetchSize) {
+		this.fetchSize = fetchSize;
 	}
 
 	public List< SQLElementDefinition > getElements() {
