@@ -14,7 +14,7 @@ import net.vdrinkup.alpaca.protocol.definition.RequestConfig;
 @XmlRootElement( name = "request" )
 public class HttpRequestConfig extends RequestConfig {
 	
-	@XmlAttribute
+	@XmlAttribute( name = "contentType" )
 	private HttpContentType contentType;
 
 	@Override

@@ -13,7 +13,7 @@ import net.vdrinkup.alpaca.protocol.definition.ResponseConfig;
  */
 @XmlRootElement( name = "response" )
 public class HttpResponseConfig extends ResponseConfig {
-	@XmlAttribute
+	@XmlAttribute( name = "contentType" )
 	private HttpContentType contentType;
 
 	@Override
