@@ -20,7 +20,7 @@ import net.vdrinkup.alpaca.sql.processor.SQLResultSetProcessor;
 
 
 /**
- *
+ * SQL结果集配置类
  * <p></p>
  * @author liubing
  * Date Feb 11, 2014
