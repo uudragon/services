@@ -17,4 +17,4 @@ if [ "$1" = "jpda" ];then
 	fi
 	shift
 fi
-nohup $JAVA_HOME/bin/java $JPDA_OPT $JAVA_OPT -jar $CUR_INSTALL_DIR/alpaca-bootstrap-${cur.version}.jar START > $CUR_INSTALL_DIR/logs/startup.out 2>&1 &
+nohup $JAVA_HOME/bin/java $JPDA_OPT $JAVA_OPT -jar $CUR_INSTALL_DIR/alpaca-bootstrap-${current.version}.jar START > $CUR_INSTALL_DIR/logs/startup.out 2>&1 &
