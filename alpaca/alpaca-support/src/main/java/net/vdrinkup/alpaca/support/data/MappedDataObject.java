@@ -23,7 +23,7 @@ import org.apache.commons.jxpath.JXPathContext;
 /**
  * 可映射的数据对象
  * <p>
- * 该类实现{@link DataObect}
+ * 该类同时实现{@link net.vdrinkup.alpaca.data.DataObject}与{@link java.util.Map}接口。
  * </p>
  * @author pluto.bing.liu
  * Date 2014-2-23
@@ -52,7 +52,7 @@ public class MappedDataObject implements DataObject, Map< String, Object >, Seri
 		if ( value != null && ! ( value instanceof byte[] ) ) {
 			throw new ClassCastException( "The value of '" + path + "' can not cast byte[]" );
 		}
-		return byte[].class.cast( value );
+		return castValue( value, byte[].class );
 	}
 
 	@Override
@@ -66,7 +66,7 @@ public class MappedDataObject implements DataObject, Map< String, Object >, Seri
 		if ( value != null && ! ( value instanceof Boolean ) ) {
 			throw new ClassCastException( "The value of '" + path + "' can not cast boolean" );
 		}
-		return Boolean.class.cast( value ).booleanValue();
+		return value == null ? false : Boolean.class.cast( value );
 	}
 
 	@Override
@@ -80,7 +80,7 @@ public class MappedDataObject implements DataObject, Map< String, Object >, Seri
 		if ( value != null && ! ( value instanceof Integer ) ) {
 			throw new ClassCastException( "The value of '" + path + "' can not cast Integer" );
 		}
-		return Integer.class.cast( value ).intValue();
+		return value == null ? 0 : Integer.class.cast( value ).intValue();
 	}
 
 	@Override
@@ -94,7 +94,7 @@ public class MappedDataObject implements DataObject, Map< String, Object >, Seri
 		if ( value != null && ! ( value instanceof Long ) ) {
 			throw new ClassCastException( "The value of '" + path + "' can not cast Long" );
 		}
-		return Long.class.cast( value ).longValue();
+		return value == null ? 0L : Long.class.cast( value ).longValue();
 	}
 
 	@Override
@@ -108,7 +108,7 @@ public class MappedDataObject implements DataObject, Map< String, Object >, Seri
 		if ( value != null && ! ( value instanceof Float ) ) {
 			throw new ClassCastException( "The value of '" + path + "' can not cast Float" );
 		}
-		return Float.class.cast( value ).floatValue();
+		return value == null ? 0.0F : Float.class.cast( value ).floatValue();
 	}
 
 	@Override
@@ -122,7 +122,7 @@ public class MappedDataObject implements DataObject, Map< String, Object >, Seri
 		if ( value != null && ! ( value instanceof Double ) ) {
 			throw new ClassCastException( "The value of '" + path + "' can not cast Double" );
 		}
-		return Double.class.cast( value ).doubleValue();
+		return value == null ? 0.00D : Double.class.cast( value ).doubleValue();
 	}
 
 	@Override
@@ -136,7 +136,7 @@ public class MappedDataObject implements DataObject, Map< String, Object >, Seri
 		if ( value != null && ! ( value instanceof Date ) ) {
 			throw new ClassCastException( "The value of '" + path + "' can not cast Date" );
 		}
-		return Date.class.cast( value );
+		return castValue( value, Date.class );
 	}
 
 	@Override
@@ -150,7 +150,7 @@ public class MappedDataObject implements DataObject, Map< String, Object >, Seri
 		if ( value != null && ! ( value instanceof BigDecimal ) ) {
 			throw new ClassCastException( "The value of '" + path + "' can not cast BigDecimal" );
 		}
-		return BigDecimal.class.cast( value );
+		return castValue( value, BigDecimal.class );
 	}
 
 	@Override
@@ -164,7 +164,7 @@ public class MappedDataObject implements DataObject, Map< String, Object >, Seri
 		if ( value != null && ! ( value instanceof Short ) ) {
 			throw new ClassCastException( "The value of '" + path + "' can not cast Short" );
 		}
-		return Short.class.cast( value ).shortValue();
+		return value == null ? 0 : Short.class.cast( value ).shortValue();
 	}
 
 	@Override
@@ -179,7 +179,7 @@ public class MappedDataObject implements DataObject, Map< String, Object >, Seri
 		if ( value != null && ! ( value instanceof List ) ) {
 			throw new ClassCastException( "The value of '" + path + "' can not cast List" );
 		}
-		return ( List< T > ) value;
+		return castValue( value, List.class );
 	}
 	
 	@Override
@@ -200,7 +200,7 @@ public class MappedDataObject implements DataObject, Map< String, Object >, Seri
 		if ( value != null && ! ( value instanceof DataObject ) ) {
 			throw new ClassCastException( "The value of '" + path + "' can not cast DataObject" );
 		}
-		return ( DataObject ) value;
+		return castValue( value, DataObject.class );
 	}
 
 	@Override
@@ -229,7 +229,7 @@ public class MappedDataObject implements DataObject, Map< String, Object >, Seri
 		if ( value != null && ! ( value instanceof String ) ) {
 			throw new ClassCastException( "The value of '" + path + "' can not cast String" );
 		}
-		return ( String ) value;
+		return castValue( value, String.class );
 	}
 
 	@Override
@@ -240,10 +240,10 @@ public class MappedDataObject implements DataObject, Map< String, Object >, Seri
 	@Override
 	public Number getNumber( String path ) {
 		Object value = get( path );
-		if ( ! ( value instanceof Number ) ) {
+		if ( value != null && ! ( value instanceof Number ) ) {
 			throw new ClassCastException( "The value of '" + path + "' can not cast Number" );
 		}
-		return ( Number ) value;
+		return castValue( value, Number.class );
 	}
 
 	@Override
@@ -309,6 +309,10 @@ public class MappedDataObject implements DataObject, Map< String, Object >, Seri
 	@Override
 	public Set< java.util.Map.Entry< String, Object >> entrySet() {
 		return embedded.entrySet();
+	}
+	
+	private < T > T castValue( Object value,  Class< T > clazz ) {
+		return value == null ? null : clazz.cast( value );
 	}
 	
 }
