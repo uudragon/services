@@ -6,7 +6,7 @@
  *******************************************************************************/
 package net.vdrinkup.alpaca.flow;
 
-import net.vdrinkup.alpaca.Identity;
+import net.vdrinkup.alpaca.Named;
 import net.vdrinkup.alpaca.configuration.model.AbstractElementsDefinition;
 
 /**
@@ -15,5 +15,5 @@ import net.vdrinkup.alpaca.configuration.model.AbstractElementsDefinition;
  * @author liubing
  * Date Nov 10, 2013
  */
-public abstract class FlowDefinition extends AbstractElementsDefinition implements Identity {
+public abstract class FlowDefinition extends AbstractElementsDefinition implements Named {
 }

@@ -6,7 +6,7 @@
  *******************************************************************************/
 package net.vdrinkup.alpaca.configuration;
 
-import net.vdrinkup.alpaca.Identity;
+import net.vdrinkup.alpaca.Named;
 
 /**
  *
@@ -14,5 +14,5 @@ import net.vdrinkup.alpaca.Identity;
  * @author liubing
  * Date Nov 10, 2013
  */
-public interface IConfiguration extends Identity {
+public interface IConfiguration extends Named {
 }
