@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <protocol.http xmlns="http://alpaca.vdrinkup.net/configuration" mode="s" side="server" ioDirection="i/o" autoRun="true">
 	<commons charset="UTF-8"/>
-	<request uri="http://0.0.0.0:8080/bam" contentType="application/json"/>
+	<request uri="http://0.0.0.0:9090/bam" contentType="application/json"/>
 	<response contentType="application/json"/>
 </protocol.http>
