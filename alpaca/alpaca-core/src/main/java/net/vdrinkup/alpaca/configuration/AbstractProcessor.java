@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 
 
 /**
- *
+ * 抽象处理器
  * <p></p>
  * @author liubing
  * Date 2013-11-13

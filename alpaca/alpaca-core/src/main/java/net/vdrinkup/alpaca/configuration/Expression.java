@@ -10,6 +10,7 @@ import net.vdrinkup.alpaca.context.DataContext;
 import net.vdrinkup.alpaca.data.DataObject;
 
 /**
+ * 表达式接口
  * <p></p>
  * @author bing.liu
  * Date 2012-2-9

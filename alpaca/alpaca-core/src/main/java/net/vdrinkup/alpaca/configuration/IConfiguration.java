@@ -9,7 +9,7 @@ package net.vdrinkup.alpaca.configuration;
 import net.vdrinkup.alpaca.Named;
 
 /**
- *
+ * 可配置接口
  * <p></p>
  * @author liubing
  * Date Nov 10, 2013

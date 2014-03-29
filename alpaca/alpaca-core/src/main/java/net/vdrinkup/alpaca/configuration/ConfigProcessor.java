@@ -14,7 +14,7 @@ import net.vdrinkup.alpaca.configuration.model.language.ExpressionDefinition;
 
 
 /**
- *
+ * 配置处理器接口
  * <p></p>
  * @author pluto.bing.liu
  * Date 2013-12-4
