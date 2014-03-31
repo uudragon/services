@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import net.vdrinkup.alpaca.configuration.Processor;
-import net.vdrinkup.alpaca.configuration.model.AbstractElementsDefinition;
+import net.vdrinkup.alpaca.configuration.model.AbstractOutputsDefinition;
 import net.vdrinkup.alpaca.flow.processor.TransactedProcessor;
 
 
@@ -22,7 +22,7 @@ import net.vdrinkup.alpaca.flow.processor.TransactedProcessor;
  * Date Nov 28, 2013
  */
 @XmlRootElement( name = "transacted" )
-public class TransactedDefinition extends AbstractElementsDefinition {
+public class TransactedDefinition extends AbstractOutputsDefinition {
 	@XmlAttribute
 	private String dms;
 	@XmlAttribute

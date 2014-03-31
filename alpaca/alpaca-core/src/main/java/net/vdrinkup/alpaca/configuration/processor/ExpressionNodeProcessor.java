@@ -41,7 +41,7 @@ public class ExpressionNodeProcessor implements Processor {
 		}
 		boolean isMatch = node.getExpression().matches( context );
 		if ( isMatch ) {
-			for ( ProcessorDefinition processor : node.getElements() ) {
+			for ( ProcessorDefinition processor : node.getOutputs() ) {
 				try {
 					processor.createProcessor().process( context );
 				} catch ( Exception e ) {

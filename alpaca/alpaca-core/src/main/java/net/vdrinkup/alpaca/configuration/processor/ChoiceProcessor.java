@@ -8,9 +8,11 @@ package net.vdrinkup.alpaca.configuration.processor;
 
 import java.util.List;
 
+import net.vdrinkup.alpaca.DoneCallback;
 import net.vdrinkup.alpaca.configuration.AbstractProcessor;
 import net.vdrinkup.alpaca.configuration.model.ChoiceDefinition;
 import net.vdrinkup.alpaca.configuration.model.WhenDefinition;
+import net.vdrinkup.alpaca.context.ContextStatus;
 import net.vdrinkup.alpaca.context.DataContext;
 
 
@@ -29,18 +31,29 @@ public class ChoiceProcessor extends AbstractProcessor< ChoiceDefinition > {
 	}
 
 	@Override
-	public void handle( DataContext context ) throws Exception {
+	public boolean process( DataContext context, DoneCallback callback ) {
 		List< WhenDefinition > whenClauses = getDefinition().getWhenClauses();
 		boolean isMatch = false;
 		for ( WhenDefinition whenClause : whenClauses ) {
 			isMatch = whenClause.getExpression().matches( context );
 			if ( isMatch ) {
-				whenClause.createProcessor().process( context );
-			}
+				try {
+					whenClause.createProcessor().process( context );
+				} catch ( Exception e ) {
+					context.setException( e );
+					context.setStatus( ContextStatus.EXCEPTION );
+					return true;
+				}
+			} 
 		}
 		if ( ! isMatch ) {
-			getDefinition().getOtherwise().createProcessor().process( context );
+			try {
+				getDefinition().getOtherwise().createProcessor().process( context );
+			} catch ( Exception e ) {
+				
+			}
 		}
+		return true;
 	}
 
 }

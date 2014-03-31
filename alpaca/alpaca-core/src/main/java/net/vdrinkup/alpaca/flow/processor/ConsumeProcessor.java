@@ -6,6 +6,7 @@
  *******************************************************************************/
 package net.vdrinkup.alpaca.flow.processor;
 
+import net.vdrinkup.alpaca.DoneCallback;
 import net.vdrinkup.alpaca.SchemeConstants;
 import net.vdrinkup.alpaca.configuration.AbstractProcessor;
 import net.vdrinkup.alpaca.context.ContextConstants;
@@ -29,7 +30,7 @@ public class ConsumeProcessor extends AbstractProcessor< ConsumeDefinition > {
 	}
 
 	@Override
-	protected void handle( DataContext context ) throws Exception {
+	protected boolean process( DataContext context, DoneCallback callback ) {
 		final String oldFromName = context.getProperty( ContextConstants.FROM_NAME, String.class );
 		final String oldToName = context.getProperty( ContextConstants.TO_NAME, String.class );
 		final String fromName = oldToName.concat( SchemeConstants.LOCATION_SEPARATOR ).concat( getDefinition().getId() );
@@ -37,6 +38,7 @@ public class ConsumeProcessor extends AbstractProcessor< ConsumeDefinition > {
 		FlowEngine.INSTANCE.incoming( context );
 		context.setProperty( ContextConstants.FROM_NAME, oldFromName );
 		context.setProperty( ContextConstants.FROM_NAME, oldToName );
+		return true;
 	}
 
 }

@@ -20,5 +20,17 @@
 			<artifactId>alpaca-core</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>net.vdrinkup</groupId>
+			<artifactId>alpaca-support</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-jdk14</artifactId>
+			<version>1.6.2</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 </project>

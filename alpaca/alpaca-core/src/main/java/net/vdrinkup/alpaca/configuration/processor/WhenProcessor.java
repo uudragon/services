@@ -6,9 +6,11 @@
  *******************************************************************************/
 package net.vdrinkup.alpaca.configuration.processor;
 
+import net.vdrinkup.alpaca.DoneCallback;
 import net.vdrinkup.alpaca.configuration.AbstractProcessor;
 import net.vdrinkup.alpaca.configuration.model.ProcessorDefinition;
 import net.vdrinkup.alpaca.configuration.model.WhenDefinition;
+import net.vdrinkup.alpaca.context.ContextStatus;
 import net.vdrinkup.alpaca.context.DataContext;
 
 /**
@@ -27,10 +29,17 @@ public class WhenProcessor extends AbstractProcessor< WhenDefinition > {
 	}
 
 	@Override
-	protected void handle( DataContext context ) throws Exception {
-		for ( ProcessorDefinition processor : getDefinition().getElements() ) {
-			processor.createProcessor().process( context );
+	protected boolean process( DataContext context, DoneCallback callback ) {
+		for ( ProcessorDefinition processor : getDefinition().getOutputs() ) {
+			try {
+				processor.createProcessor().process( context );
+			} catch ( Exception e ) {
+				context.setException( e );
+				context.setStatus( ContextStatus.EXCEPTION );
+				return true;
+			}
 		}
+		return true;
 	}
 
 }

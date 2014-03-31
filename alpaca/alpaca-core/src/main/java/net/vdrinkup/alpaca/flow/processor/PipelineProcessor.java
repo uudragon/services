@@ -6,6 +6,7 @@
  *******************************************************************************/
 package net.vdrinkup.alpaca.flow.processor;
 
+import net.vdrinkup.alpaca.DoneCallback;
 import net.vdrinkup.alpaca.configuration.AbstractProcessor;
 import net.vdrinkup.alpaca.context.DataContext;
 import net.vdrinkup.alpaca.flow.definition.PipelineDefinition;
@@ -23,8 +24,8 @@ public class PipelineProcessor extends AbstractProcessor< PipelineDefinition > {
 	}
 
 	@Override
-	protected void handle( DataContext context ) throws Exception {
-		
+	protected boolean process( DataContext context, DoneCallback callback ) {
+		return true;
 	}
 
 }

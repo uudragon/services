@@ -11,10 +11,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
+import net.vdrinkup.alpaca.DoneCallback;
 import net.vdrinkup.alpaca.configuration.AbstractProcessor;
 import net.vdrinkup.alpaca.configuration.model.ProcessorDefinition;
+import net.vdrinkup.alpaca.context.ContextStatus;
 import net.vdrinkup.alpaca.context.DataContext;
 import net.vdrinkup.alpaca.messageset.MessageNode;
 import net.vdrinkup.alpaca.messageset.MessageSetConstants;
@@ -39,7 +42,7 @@ public class XMLInProcessor extends AbstractProcessor< XMLInDefinition > {
 	}
 
 	@Override
-	public void handle( DataContext context ) throws Exception {
+	public boolean process( DataContext context, DoneCallback callback ) {
 		if ( ! ( context.getIn() instanceof byte[] ) ) {
 			throw new IllegalArgumentException( "The input must be an instance of byte[]" );
 		}
@@ -97,12 +100,21 @@ public class XMLInProcessor extends AbstractProcessor< XMLInDefinition > {
 				}
 				curNodeType = xsr.next();
 			} while ( xsr.hasNext() ) ;
+		} catch ( Exception e ) {
+			context.setException( e );
+			context.setStatus( ContextStatus.EXCEPTION );
 		} finally {
 			if ( xsr != null ) {
-				xsr.close();
+				try {
+					xsr.close();
+				} catch ( XMLStreamException e ) {
+					LOG.error( e.getMessage(), e );
+				}
 				xsr = null;
 			}
 		}
+		callback.done( true );
+		return true;
 	}
 
 }

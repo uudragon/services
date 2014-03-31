@@ -6,6 +6,7 @@
  *******************************************************************************/
 package net.vdrinkup.alpaca.configuration.processor;
 
+import net.vdrinkup.alpaca.DoneCallback;
 import net.vdrinkup.alpaca.configuration.AbstractProcessor;
 import net.vdrinkup.alpaca.configuration.model.ForeachDefinition;
 import net.vdrinkup.alpaca.context.DataContext;
@@ -26,7 +27,8 @@ public class ForeachProcessor extends AbstractProcessor< ForeachDefinition > {
 	}
 
 	@Override
-	public void handle( DataContext context ) throws Exception {
+	public boolean process( DataContext context, DoneCallback callback ) {
+		return true;
 	}
 
 }

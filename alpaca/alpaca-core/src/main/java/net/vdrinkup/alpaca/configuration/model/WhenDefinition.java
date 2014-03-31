@@ -21,7 +21,7 @@ import net.vdrinkup.alpaca.configuration.processor.WhenProcessor;
  * Date 2012-2-10
  */
 @XmlRootElement( name = "when" ) 
-public class WhenDefinition extends AbstractElementsDefinition {
+public class WhenDefinition extends AbstractOutputsDefinition {
 	@XmlElementRef
 	private ExpressionDefinition expression;
 	@XmlTransient

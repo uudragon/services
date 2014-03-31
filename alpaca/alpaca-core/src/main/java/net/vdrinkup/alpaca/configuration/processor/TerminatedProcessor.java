@@ -6,6 +6,7 @@
  *******************************************************************************/
 package net.vdrinkup.alpaca.configuration.processor;
 
+import net.vdrinkup.alpaca.DoneCallback;
 import net.vdrinkup.alpaca.configuration.AbstractProcessor;
 import net.vdrinkup.alpaca.configuration.model.TerminatedDefinition;
 import net.vdrinkup.alpaca.context.ContextStatus;
@@ -27,11 +28,12 @@ public class TerminatedProcessor extends AbstractProcessor< TerminatedDefinition
 	}
 	
 	@Override
-	public void handle( DataContext context ) throws Exception {
+	public boolean process( DataContext context, DoneCallback callback ) {
 		if ( LOG.isDebugEnabled() ) {
 			LOG.debug( "The flow will be terminated." );
 		}
 		context.setStatus( ContextStatus.TERMINATED );
+		return true;
 	}
 
 }

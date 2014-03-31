@@ -6,8 +6,9 @@
  *******************************************************************************/
 package net.vdrinkup.alpaca.configuration.processor;
 
-import java.util.Iterator;
+import java.util.List;
 
+import net.vdrinkup.alpaca.DoneCallback;
 import net.vdrinkup.alpaca.configuration.AbstractProcessor;
 import net.vdrinkup.alpaca.configuration.model.OtherwiseDefinition;
 import net.vdrinkup.alpaca.configuration.model.ProcessorDefinition;
@@ -30,13 +31,18 @@ public class OtherwiseProcessor extends AbstractProcessor< OtherwiseDefinition >
 	}
 
 	@Override
-	protected void handle( DataContext context ) throws Exception {
-		final Iterator< ProcessorDefinition > iter = getDefinition().getElements().iterator();
-		ProcessorDefinition definition = null;
-		while ( ContextStatus.VALID.equals( context.getStatus() ) && iter.hasNext() ) {
-			definition = iter.next();
-			definition.createProcessor().process( context );
+	protected boolean process( DataContext context, DoneCallback callback ) {
+		final List< ProcessorDefinition > processors = getDefinition().getOutputs();
+		for ( ProcessorDefinition processor : processors ) {
+			try {
+				processor.createProcessor().process( context );
+			} catch ( Exception e ) {
+				context.setException( e );
+				context.setStatus( ContextStatus.EXCEPTION );
+				return true;
+			}
 		}
+		return true;
 	}
 
 }

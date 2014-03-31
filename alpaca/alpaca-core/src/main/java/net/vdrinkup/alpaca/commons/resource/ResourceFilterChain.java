@@ -4,7 +4,7 @@
  * Contributors:
  *     JD Corporation 
  *******************************************************************************/
-package net.vdrinkup.alpaca.commons.filter;
+package net.vdrinkup.alpaca.commons.resource;
 
 /**
  *
@@ -12,7 +12,7 @@ package net.vdrinkup.alpaca.commons.filter;
  * @author liubing
  * Date Nov 25, 2013
  */
-public interface ResourceFilterChain {
+public interface ResourceFilterChain extends ResourceFilter {
 	
 	public < T, R > R doFilter( T t ) throws Exception;
 

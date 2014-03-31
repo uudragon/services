@@ -19,7 +19,7 @@ import net.vdrinkup.alpaca.configuration.processor.OtherwiseProcessor;
  * Date 2012-2-10
  */
 @XmlRootElement( name = "otherwise" )
-public class OtherwiseDefinition extends AbstractElementsDefinition {
+public class OtherwiseDefinition extends AbstractOutputsDefinition {
 	@XmlTransient
 	private volatile Processor processor;
 

@@ -6,6 +6,7 @@
  *******************************************************************************/
 package net.vdrinkup.alpaca.configuration.processor;
 
+import net.vdrinkup.alpaca.DoneCallback;
 import net.vdrinkup.alpaca.configuration.AbstractProcessor;
 import net.vdrinkup.alpaca.configuration.model.WatershadDefinition;
 import net.vdrinkup.alpaca.context.DataContext;
@@ -33,9 +34,10 @@ public class WatershadProcessor extends AbstractProcessor< WatershadDefinition >
 	}
 
 	@Override
-	public void handle( DataContext context ) throws Exception {
+	public boolean process( DataContext context, DoneCallback callback ) {
 		context.setIn( context.getOut() );
 		context.setOut( null );
+		return true;
 	}
 
 }

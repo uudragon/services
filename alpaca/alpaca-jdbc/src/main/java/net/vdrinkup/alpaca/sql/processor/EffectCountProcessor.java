@@ -6,6 +6,7 @@
  *******************************************************************************/
 package net.vdrinkup.alpaca.sql.processor;
 
+import net.vdrinkup.alpaca.DoneCallback;
 import net.vdrinkup.alpaca.configuration.AbstractProcessor;
 import net.vdrinkup.alpaca.context.DataContext;
 import net.vdrinkup.alpaca.data.DataObject;
@@ -28,13 +29,14 @@ public class EffectCountProcessor extends AbstractProcessor< EffectCountDefiniti
 	}
 
 	@Override
-	protected void handle( DataContext context ) throws Exception {
+	protected boolean process( DataContext context, DoneCallback callback ) {
 		if ( ! ( context.getIn() instanceof Integer ) && ! ( context.getIn() instanceof int[] ) ) {
 			throw new IllegalArgumentException( "The input of current context must be an instance of java.lang.Integer or int[]" );
 		}
 		String key = getDefinition().getBinding() == null ? "effect_count" : getDefinition().getBinding();
 		DataObject sdo = context.getOut();
 		sdo.set( key, context.getIn() );
+		return true;
 	}
 
 }

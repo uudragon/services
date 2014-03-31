@@ -8,6 +8,7 @@ package net.vdrinkup.alpaca.sql.processor;
 
 import java.util.Iterator;
 
+import net.vdrinkup.alpaca.DoneCallback;
 import net.vdrinkup.alpaca.configuration.AbstractProcessor;
 import net.vdrinkup.alpaca.configuration.model.ProcessorDefinition;
 import net.vdrinkup.alpaca.context.ContextStatus;
@@ -30,14 +31,18 @@ public class SQLProcessor extends AbstractProcessor< AbstractSQLDefinition > {
 	}
 
 	@Override
-	protected void handle( DataContext context ) throws Exception {
+	protected boolean process( DataContext context, DoneCallback callback ) {
 		Iterator< ProcessorDefinition > iter = getDefinition().getElements().iterator();
 		while ( iter.hasNext() ) {
-			if ( ! ContextStatus.VALID.equals( context.getStatus() ) ) {
-				break ;
+			try {
+				iter.next().createProcessor().process( context );
+			} catch ( Exception e ) {
+				context.setException( e );
+				context.setStatus( ContextStatus.EXCEPTION );
+				callback.done( true );
 			}
-			iter.next().createProcessor().process( context );
 		}
+		return true;
 	}
 
 }

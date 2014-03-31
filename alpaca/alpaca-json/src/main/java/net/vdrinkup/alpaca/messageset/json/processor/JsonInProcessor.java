@@ -11,8 +11,10 @@ import java.nio.ByteBuffer;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.vdrinkup.alpaca.DoneCallback;
 import net.vdrinkup.alpaca.configuration.AbstractProcessor;
 import net.vdrinkup.alpaca.configuration.model.ProcessorDefinition;
+import net.vdrinkup.alpaca.context.ContextStatus;
 import net.vdrinkup.alpaca.context.DataContext;
 import net.vdrinkup.alpaca.data.DataFactory;
 import net.vdrinkup.alpaca.messageset.MessageNode;
@@ -34,7 +36,7 @@ public class JsonInProcessor extends AbstractProcessor< JsonInDefinition > {
 	}
 
 	@Override
-	protected void handle( DataContext context ) throws Exception {
+	protected boolean process( DataContext context, DoneCallback callback ) {
 		if ( ! ( context.getIn() instanceof byte[] ) ) {
 			throw new IllegalArgumentException( "The in of DataContext must be an instance of byte[]" );
 		}
@@ -42,10 +44,17 @@ public class JsonInProcessor extends AbstractProcessor< JsonInDefinition > {
 		context.setIn( buffer );
 		context.setProperty( "parseKey", new ByteArrayOutputStream() );
 		context.setProperty( "definition", getDefinition() );
-		decode( context );
+		try {
+			decode( context );
+		} catch ( Exception e ) {
+			LOG.error( e.getMessage(), e );
+			context.setException( e );
+			context.setStatus( ContextStatus.EXCEPTION );
+		}
 		if ( LOG.isDebugEnabled() ) {
 			LOG.debug( "The sdo is [{}]", context.getOut().toString() );
 		}
+		return true;
 	}
 	
 	private void decode( DataContext context ) throws Exception {
@@ -105,12 +114,17 @@ public class JsonInProcessor extends AbstractProcessor< JsonInDefinition > {
 			} else if ( n == JsonConstants.R_BRACES ) {
 				//当前字符为右大括号
 				if ( curBuff.size() > 0 ) {
-					MessageNode node = definition.findSub( new String( keyStack.remove( 0 ) ) );
-					context.setIn( curBuff.toByteArray() );
-					context.setOut( target );
-					( ( ProcessorDefinition ) node ).createProcessor().process( context );
-					context.setIn( buffer );
-					context.setOut( null );		
+					final String nodeName = new String( keyStack.remove( 0 ) );
+					MessageNode node = definition.findSub( nodeName );
+					if ( node == null ) {
+						LOG.warn( "Can not found MessageNode named [{}].", nodeName );
+					} else {
+						context.setIn( curBuff.toByteArray() );
+						context.setOut( target );
+						( ( ProcessorDefinition ) node ).createProcessor().process( context );
+						context.setIn( buffer );
+						context.setOut( null );	
+					}
 				}
 				curBuff.reset();
 				if ( stack.size() != 0 ) {
@@ -120,9 +134,14 @@ public class JsonInProcessor extends AbstractProcessor< JsonInDefinition > {
 					if ( defStack.size() != 0 ) {
 						definition = defStack.remove( 0 );
 					}
-					MessageNode node = definition.findSub( new String( keyStack.remove( 0 ) ) );
-					( ( ProcessorDefinition ) node ).createProcessor().process( context );
-					context.setIn( buffer );
+					final String nodeName = new String( keyStack.remove( 0 ) );
+					MessageNode node = definition.findSub( nodeName );
+					if ( node == null ) {
+						LOG.warn( "Can not found MessageNode named [{}].", nodeName );
+					} else {
+						( ( ProcessorDefinition ) node ).createProcessor().process( context );
+						context.setIn( buffer );
+					}
 				} else {
 					break ;
 				}
@@ -131,12 +150,17 @@ public class JsonInProcessor extends AbstractProcessor< JsonInDefinition > {
 			} else if ( n == JsonConstants.COMMA ) {
 				//当前字节是“,”且当前key不为null
 				if ( keyStack.size() > 0 ) { 
-					MessageNode pd = definition.findSub( new String( keyStack.remove( 0 ) ) );
-					context.setIn( curBuff.toByteArray() );
-					context.setOut( target );
-					( ( ProcessorDefinition ) pd ).createProcessor().process( context );
-					context.setIn( buffer );
-					context.setOut( null );
+					final String nodeName = new String( keyStack.remove( 0 ) );
+					MessageNode node = definition.findSub( nodeName );
+					if ( node == null ) {
+						LOG.warn( "Can not found MessageNode named [{}].", nodeName );						
+					} else {
+						context.setIn( curBuff.toByteArray() );
+						context.setOut( target );
+						( ( ProcessorDefinition ) node ).createProcessor().process( context );
+						context.setIn( buffer );
+						context.setOut( null );
+					}
 				}
 				curBuff.reset();
 			} else if ( n == JsonConstants.COLON ) {

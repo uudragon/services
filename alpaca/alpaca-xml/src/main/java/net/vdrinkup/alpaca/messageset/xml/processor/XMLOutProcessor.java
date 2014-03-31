@@ -9,10 +9,13 @@ package net.vdrinkup.alpaca.messageset.xml.processor;
 import java.io.ByteArrayOutputStream;
 
 import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
+import net.vdrinkup.alpaca.DoneCallback;
 import net.vdrinkup.alpaca.configuration.AbstractProcessor;
 import net.vdrinkup.alpaca.configuration.model.ProcessorDefinition;
+import net.vdrinkup.alpaca.context.ContextStatus;
 import net.vdrinkup.alpaca.context.DataContext;
 import net.vdrinkup.alpaca.data.DataObject;
 import net.vdrinkup.alpaca.messageset.xml.definition.XMLOutDefinition;
@@ -34,7 +37,7 @@ public class XMLOutProcessor extends AbstractProcessor< XMLOutDefinition > {
 	}
 
 	@Override
-	public void handle( DataContext context ) throws Exception {
+	public boolean process( DataContext context, DoneCallback callback ) {
 		if ( ! ( context.getIn() instanceof DataObject ) ) {
 			throw new IllegalArgumentException( "The input must be an instance of DataObject." );
 		}
@@ -50,13 +53,22 @@ public class XMLOutProcessor extends AbstractProcessor< XMLOutDefinition > {
 				definition.createProcessor().process( context );
 			}
 			xsw.writeEndDocument();
+		} catch ( Exception e ) {
+			context.setException( e );
+			context.setStatus( ContextStatus.EXCEPTION );
 		} finally {
 			if ( xsw != null ) {
-				xsw.close();
+				try {
+					xsw.close();
+				} catch ( XMLStreamException e ) {
+					LOG.error( e.getMessage(), e );
+				}
 				xsw = null;
 			}
 		};
 		context.setOut( baos.toByteArray() );
+		callback.done( true );
+		return true;
 	}
 
 }

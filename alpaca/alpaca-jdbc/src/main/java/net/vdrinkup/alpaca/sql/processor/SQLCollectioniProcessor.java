@@ -6,7 +6,9 @@
  *******************************************************************************/
 package net.vdrinkup.alpaca.sql.processor;
 
+import net.vdrinkup.alpaca.DoneCallback;
 import net.vdrinkup.alpaca.configuration.AbstractProcessor;
+import net.vdrinkup.alpaca.context.ContextStatus;
 import net.vdrinkup.alpaca.context.DataContext;
 import net.vdrinkup.alpaca.sql.definition.SQLCollectionDefinition;
 import net.vdrinkup.alpaca.sql.definition.SQLElementDefinition;
@@ -25,10 +27,18 @@ public class SQLCollectioniProcessor extends AbstractProcessor< SQLCollectionDef
 	}
 
 	@Override
-	protected void handle( DataContext context ) throws Exception {
-		for ( SQLElementDefinition element : getDefinition().getElements() ) {
-			element.createProcessor().process( context );
+	protected boolean process( DataContext context, DoneCallback callback ) {
+		process : for ( SQLElementDefinition element : getDefinition().getElements() ) {
+			try {
+				element.createProcessor().process( context );
+			} catch ( Exception e ) {
+				LOG.error( e.getMessage(), e );
+				context.setException( e );
+				context.setStatus( ContextStatus.EXCEPTION );
+				break process;
+			}
 		}
+		return true;
 	}
 
 }

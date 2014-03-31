@@ -13,24 +13,24 @@ import javax.xml.bind.annotation.XmlAnyElement;
 
 
 /**
- * 抽象元素集定义类
+ * 抽象任意输出元素定义类
  * <p>
  * </p>
  * @author liubing Date 2013-11-13
  */
-public abstract class AbstractElementsDefinition extends ProcessorDefinition {
+public abstract class AbstractAnyOutputsDefinition extends ProcessorDefinition {
 	@XmlAnyElement( lax = true )
-	protected List< ProcessorDefinition > elements = new LinkedList< ProcessorDefinition >();
+	protected List< ProcessorDefinition > outputs = new LinkedList< ProcessorDefinition >();
 
-	public AbstractElementsDefinition() {
+	public AbstractAnyOutputsDefinition() {
 	}
 
-	public List< ProcessorDefinition > getElements() {
-		return this.elements;
+	public List< ProcessorDefinition > getOutputs() {
+		return outputs;
 	}
 
-	public void setElements( List< ProcessorDefinition > elements ) {
-		this.elements = elements;
+	public void setOutputs( List< ProcessorDefinition > outputs ) {
+		this.outputs = outputs;
 	}
 
 }

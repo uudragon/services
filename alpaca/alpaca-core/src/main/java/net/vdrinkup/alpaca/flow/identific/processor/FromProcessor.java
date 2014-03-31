@@ -6,8 +6,7 @@
  *******************************************************************************/
 package net.vdrinkup.alpaca.flow.identific.processor;
 
-import java.util.Iterator;
-
+import net.vdrinkup.alpaca.DoneCallback;
 import net.vdrinkup.alpaca.configuration.AbstractProcessor;
 import net.vdrinkup.alpaca.configuration.model.ProcessorDefinition;
 import net.vdrinkup.alpaca.context.ContextStatus;
@@ -31,13 +30,17 @@ public class FromProcessor extends AbstractProcessor< FromDefinition > {
 	}
 
 	@Override
-	protected void handle( DataContext context ) throws Exception {
-		final Iterator< ProcessorDefinition > iter = getDefinition().getElements().iterator();
-		ProcessorDefinition definition = null;
-		while ( ContextStatus.VALID.equals( context.getStatus() ) && iter.hasNext() ) {
-			definition = iter.next();
-			definition.createProcessor().process( context );
+	protected boolean process( DataContext context, DoneCallback callback ) {
+		process : for ( ProcessorDefinition processor : getDefinition().getOutputs() ) {
+			try {
+				processor.createProcessor().process( context );
+			} catch ( Exception e ) {
+				context.setException( e );
+				context.setStatus( ContextStatus.EXCEPTION );
+				break process;
+			}
 		}
+		return true;
 	}
 
 }

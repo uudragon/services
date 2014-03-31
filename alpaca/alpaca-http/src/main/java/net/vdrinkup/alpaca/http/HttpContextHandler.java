@@ -50,7 +50,7 @@ public class HttpContextHandler extends ContextHandler {
 		} else {
 			final int messageLen = request.getContentLength();
 			InputStream is = request.getInputStream();
-			if ( messageLen == 0 ) {
+			if ( messageLen <= 0 ) {
 				byte[] buff = new byte[ 1024 ];
 				int n = 0;
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -62,6 +62,9 @@ public class HttpContextHandler extends ContextHandler {
 				message = new byte[ messageLen ];
 				is.read( message );
 			}
+		}
+		if ( LOG.isDebugEnabled() ) {
+			LOG.debug( "Current received message is [{}].", new String( message, getConfig().getCommons().getCharset() ) );
 		}
 		final DataContext context = FlowEngine.INSTANCE.createnNewContext();
 		context.setIn( message );
@@ -88,6 +91,7 @@ public class HttpContextHandler extends ContextHandler {
 		} else {
 			throw new ServletException( "No type of message supported." );
 		}
+		response.addHeader( "Access-Control-Allow-Origin", "*" );
 		response.setCharacterEncoding( getConfig().getCommons().getCharset() );
 		final StringBuilder contentType = new StringBuilder( getConfig().getResponse().getContentType().getContentType() );
 		contentType.append( ";charset=" ).append( getConfig().getCommons().getCharset() );

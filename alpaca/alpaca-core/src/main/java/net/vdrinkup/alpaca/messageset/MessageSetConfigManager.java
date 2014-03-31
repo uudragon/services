@@ -9,6 +9,8 @@ package net.vdrinkup.alpaca.messageset;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantLock;
@@ -19,6 +21,9 @@ import javax.xml.stream.XMLStreamReader;
 
 import net.vdrinkup.alpaca.Env;
 import net.vdrinkup.alpaca.Manager;
+import net.vdrinkup.alpaca.commons.resource.ResourceFilter;
+import net.vdrinkup.alpaca.commons.resource.ResourceScanner;
+import net.vdrinkup.alpaca.commons.resource.impl.FileResourceScanner;
 import net.vdrinkup.alpaca.configuration.ConfigProcessor;
 import net.vdrinkup.alpaca.messageset.definition.MessageDefinition;
 
@@ -77,13 +82,26 @@ public class MessageSetConfigManager implements Manager {
 	}
 	
 	private void loadAll() {
-		final String confPath = Env.getConfPath().concat( "messageset" ).concat( File.separator ).concat( "configuration" );
-		final File dir = new File( confPath );
+		final String basePath = Env.getConfPath().concat( "messageset" ).concat( File.separator ).concat( "configuration" );
+		final File dir = new File( basePath );
 		if ( ! dir.exists() ) {
-			LOG.warn( "No config file be found in {}", confPath );
+			LOG.warn( "No config file be found in {}", basePath );
 			return ;
 		}
-		final File[] files = dir.listFiles();
+		final ResourceScanner scanner = new FileResourceScanner();
+		final List< File > files = new LinkedList< File >();
+		scanner.scan( dir, new ResourceFilter() {
+
+			@Override
+			public < T, R > R doFilter( T t ) throws Exception {
+				File file = ( File ) t;
+				if ( file.getName().endsWith( ".xml" ) ) {
+					files.add( file );
+				}
+				return null;
+			}
+			
+		} );
 		final XMLInputFactory xif = XMLInputFactory.newInstance();
 		XMLStreamReader xsr = null;
 		ConfigProcessor processor = null;

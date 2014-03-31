@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import net.vdrinkup.alpaca.configuration.Processor;
-import net.vdrinkup.alpaca.configuration.model.AbstractElementsDefinition;
+import net.vdrinkup.alpaca.configuration.model.AbstractOutputsDefinition;
 import net.vdrinkup.alpaca.flow.identific.processor.FromProcessor;
 
 
@@ -22,7 +22,7 @@ import net.vdrinkup.alpaca.flow.identific.processor.FromProcessor;
  * Date Nov 28, 2013
  */
 @XmlRootElement( name = "from" )
-public class FromDefinition extends AbstractElementsDefinition {
+public class FromDefinition extends AbstractOutputsDefinition {
 	@XmlAttribute
 	private String uri;
 	@XmlTransient

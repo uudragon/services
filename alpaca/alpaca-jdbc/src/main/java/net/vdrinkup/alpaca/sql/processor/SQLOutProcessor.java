@@ -6,7 +6,9 @@
  *******************************************************************************/
 package net.vdrinkup.alpaca.sql.processor;
 
+import net.vdrinkup.alpaca.DoneCallback;
 import net.vdrinkup.alpaca.configuration.AbstractProcessor;
+import net.vdrinkup.alpaca.context.ContextStatus;
 import net.vdrinkup.alpaca.context.DataContext;
 import net.vdrinkup.alpaca.sql.definition.SQLOutDefinition;
 
@@ -27,10 +29,19 @@ public class SQLOutProcessor extends AbstractProcessor< SQLOutDefinition > {
 	}
 
 	@Override
-	public void handle( DataContext context ) throws Exception {
-		if ( getDefinition().getSqlDef() != null ) {
-			getDefinition().getSqlDef().createProcessor().process( context );
+	public boolean process( DataContext context, DoneCallback callback ) {
+		process : if ( getDefinition().getSqlDef() != null ) {
+			try {
+				getDefinition().getSqlDef().createProcessor().process( context );
+			} catch ( Exception e ) {
+				LOG.error( e.getMessage(), e );
+				context.setException( e );
+				context.setStatus( ContextStatus.EXCEPTION );
+				break process;
+			}
 		}
+		callback.done( true );
+		return true;
 	}
 
 }

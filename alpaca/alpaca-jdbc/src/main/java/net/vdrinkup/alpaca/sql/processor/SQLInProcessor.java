@@ -6,8 +6,10 @@
  *******************************************************************************/
 package net.vdrinkup.alpaca.sql.processor;
 
+import net.vdrinkup.alpaca.DoneCallback;
 import net.vdrinkup.alpaca.configuration.AbstractProcessor;
 import net.vdrinkup.alpaca.configuration.model.ProcessorDefinition;
+import net.vdrinkup.alpaca.context.ContextStatus;
 import net.vdrinkup.alpaca.context.DataContext;
 import net.vdrinkup.alpaca.data.DataFactory;
 import net.vdrinkup.alpaca.data.DataObject;
@@ -27,8 +29,8 @@ public class SQLInProcessor extends AbstractProcessor< SQLInDefinition > {
 	}
 
 	@Override
-	public void handle( DataContext context ) throws Exception {
-		if ( getDefinition().isLeaf() ) {
+	public boolean process( DataContext context, DoneCallback callback ) {
+		process : if ( getDefinition().isLeaf() ) {
 			DataObject sdo = context.getOut();
 			if ( sdo == null ) {
 				sdo = DataFactory.INSTANCE.create();
@@ -36,9 +38,17 @@ public class SQLInProcessor extends AbstractProcessor< SQLInDefinition > {
 			sdo.set( getDefinition().getBinding(), context.getIn() );
 		} else {
 			for ( ProcessorDefinition definition : getDefinition().getElements() ) {
-				definition.createProcessor().process( context );
+				try {
+					definition.createProcessor().process( context );
+				} catch ( Exception e ) {
+					LOG.error( e.getMessage(), e );
+					context.setException( e );
+					context.setStatus( ContextStatus.EXCEPTION );
+					break process;
+				}
 			}
 		}
+		return true;
 	}
 
 }

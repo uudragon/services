@@ -6,8 +6,10 @@
  *******************************************************************************/
 package net.vdrinkup.alpaca.configuration;
 
+import java.util.concurrent.CountDownLatch;
+
+import net.vdrinkup.alpaca.DoneCallback;
 import net.vdrinkup.alpaca.configuration.model.ProcessorDefinition;
-import net.vdrinkup.alpaca.context.ContextStatus;
 import net.vdrinkup.alpaca.context.DataContext;
 
 import org.slf4j.Logger;
@@ -36,17 +38,28 @@ public abstract class AbstractProcessor< T extends ProcessorDefinition > impleme
 	}
 
 	@Override
-	public void process( DataContext context ) throws Exception {
-		try {
-			handle( context );
-		} catch ( Exception e ) {
-			LOG.error( "Process error.", e );
-			context.setException( e );
-			context.setStatus( ContextStatus.EXCEPTION );
-			throw e;
+	public void process( final DataContext context ) throws Exception {
+		switch ( context.getStatus() ) {
+		case EXCEPTION :
+			return ;
+		case TERMINATED :
+			return ;
+		default : 
+			final CountDownLatch latch = new CountDownLatch(1);
+	        boolean sync = process( context, new DoneCallback() {
+	            public void done( boolean doneSync ) {
+	                if (!doneSync) {
+	                    latch.countDown();
+	                }
+	            }
+	        });
+	        if (!sync) {
+	            latch.await();
+	        }
+	        break ;
 		}
 	}
 	
-	protected abstract void handle( DataContext context ) throws Exception;
-
+	protected abstract boolean process( DataContext context, DoneCallback callback );
+	
 }

@@ -20,7 +20,7 @@ import net.vdrinkup.alpaca.configuration.processor.ExpressionNodeProcessor;
  * 
  * @author bing.liu Date 2012-2-10
  */
-public class ExpressionNode extends AbstractElementsDefinition {
+public class ExpressionNode extends AbstractOutputsDefinition {
 	@XmlElementRef
 	private ExpressionDefinition expression;
 	@XmlTransient

@@ -20,7 +20,7 @@ import net.vdrinkup.alpaca.configuration.processor.ForeachProcessor;
  * Date 2012-2-1
  */
 @XmlRootElement( name = "foreach" )
-public class ForeachDefinition extends AbstractElementsDefinition {
+public class ForeachDefinition extends AbstractOutputsDefinition {
 	@XmlAttribute
 	private String count;
 	@XmlAttribute
