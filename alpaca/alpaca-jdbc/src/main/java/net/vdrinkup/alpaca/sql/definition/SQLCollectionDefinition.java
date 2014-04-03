@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import net.vdrinkup.alpaca.configuration.Processor;
 import net.vdrinkup.alpaca.configuration.model.ProcessorDefinition;
-import net.vdrinkup.alpaca.sql.processor.SQLCollectioniProcessor;
+import net.vdrinkup.alpaca.sql.processor.SQLCollectionProcessor;
 
 
 /**
@@ -65,7 +65,7 @@ public class SQLCollectionDefinition extends ProcessorDefinition {
 		if ( processor == null ) {
 			synchronized ( this ) {
 				if ( processor == null ) {
-					processor = new SQLCollectioniProcessor( this );
+					processor = new SQLCollectionProcessor( this );
 				}
 			}
 		}
