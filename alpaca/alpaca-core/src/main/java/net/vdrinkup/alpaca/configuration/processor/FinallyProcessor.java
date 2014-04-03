@@ -25,6 +25,7 @@ public class FinallyProcessor extends AbstractProcessor< FinallyDefinition > {
 
 	@Override
 	protected boolean process( DataContext context, DoneCallback callback ) {
+		callback.done( true );
 		return true;
 	}
 
