@@ -9,11 +9,19 @@ package net.vdrinkup.alpaca.support.flow;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import net.vdrinkup.alpaca.Env;
 import net.vdrinkup.alpaca.SchemeConstants;
+import net.vdrinkup.alpaca.commons.resource.ResourceFilter;
+import net.vdrinkup.alpaca.commons.resource.ResourceScanner;
+import net.vdrinkup.alpaca.commons.resource.impl.FileResourceScanner;
 import net.vdrinkup.alpaca.flow.FlowConfigProcessor;
 import net.vdrinkup.alpaca.flow.FlowDefinition;
 import net.vdrinkup.alpaca.flow.FlowExistException;
@@ -29,6 +37,8 @@ import net.vdrinkup.alpaca.flow.FlowNotFoundException;
  * @author liubing Date Nov 26, 2013
  */
 public class DefaultFlowManager implements FlowManager {
+	
+	private static Logger LOG = LoggerFactory.getLogger( DefaultFlowManager.class );
 
 	private boolean running = false;
 
@@ -64,9 +74,21 @@ public class DefaultFlowManager implements FlowManager {
 		if ( isStartup() ) {
 			return;
 		}
-		final File dir = new File( Env.getConfPath()
-				.concat( "flow" ) );
-		final File[] files = dir.listFiles();
+		final File dir = new File( Env.getConfPath().concat( "flow" ) );
+		final List< File > files = new LinkedList< File >();
+		final ResourceScanner scanner = new FileResourceScanner();
+		scanner.scan( dir, new ResourceFilter() {
+
+			@Override
+			public < T, R > R doFilter( T t ) throws Exception {
+				File file = ( File ) t;
+				if ( file.getName().endsWith( ".xml" ) ) {
+					files.add( file );
+				}
+				return null;
+			}
+			
+		} );
 		FileInputStream fis = null;
 		FlowDefinition definition = null;
 		for ( File file : files ) {
@@ -78,8 +100,9 @@ public class DefaultFlowManager implements FlowManager {
 				id = SchemeConstants.Prefix.FLOW_PREFIX.concat( id );
 				definition.setId( id );
 				this.register( definition );
+				LOG.info( "Flow [{}] has been register successfully.", id );
 			} catch ( Exception e ) {
-				e.printStackTrace();
+				LOG.error( e.getMessage(), e );
 			} finally {
 				if ( fis != null ) {
 					try {
