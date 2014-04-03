@@ -42,7 +42,6 @@ public class SQLForeachProcessor extends
 			final Session session = context.getOut();
 			boolean first = true;
 			assembleOpen( session );
-			final Object bindingValue = sdo.get( getDefinition().getName() );
 			for ( Object o : iterable ) {
 				if ( first ) {
 					session.getScript().append( "" );
@@ -56,7 +55,10 @@ public class SQLForeachProcessor extends
 				}
 				if ( o instanceof DataObject ) {
 					DataObject item = ( DataObject ) o;
-					item.set( getDefinition().getName(), bindingValue );
+					if ( getDefinition().getName() != null && !"".equals( getDefinition().getName() ) ){
+						final Object bindingValue = sdo.get( getDefinition().getName() );
+						item.set( getDefinition().getName(), bindingValue );
+					}
 					assembleDataObject( context, item );
 				} else {
 					assembleObject( session, o );
