@@ -59,7 +59,7 @@ public class JdbcDMSProvider implements Provider {
 			LOG.warn( "The instance of [{}] has been started.", getDataSourceDefinition().getName() );
 			return ;
 		}
-		dataSource = ComboPooledDataSource.class.newInstance();
+		dataSource = new ComboPooledDataSource( null );
 		( ( ComboPooledDataSource ) dataSource ).setJdbcUrl( getDataSourceDefinition().getUri() );
 		Class< ComboPooledDataSource > clazz = ComboPooledDataSource.class;
 		final List< PropertyDefinition > properties = getDataSourceDefinition().getProperties();
