@@ -185,13 +185,6 @@ public class MappedDataObject implements DataObject, Map< String, Object >, Seri
 	@Override
 	public < T > void setList( String path, List< T > value ) {
 		set( path, value );
-		if ( value != null ) {
-			StringBuilder builder = null;
-			for ( int i = 0; i < value.size(); i++ ) {
-				builder = new StringBuilder( path );
-				set( builder.append( "[" ).append( i ).append( "]" ).toString(), value.get( i ) );
-			}
-		}
 	}
 
 	@Override
