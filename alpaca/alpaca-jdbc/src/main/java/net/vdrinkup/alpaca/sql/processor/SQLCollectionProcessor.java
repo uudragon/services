@@ -20,9 +20,9 @@ import net.vdrinkup.alpaca.sql.definition.SQLElementDefinition;
  * @author liubing
  * Date Feb 19, 2014
  */
-public class SQLCollectioniProcessor extends AbstractProcessor< SQLCollectionDefinition > {
+public class SQLCollectionProcessor extends AbstractProcessor< SQLCollectionDefinition > {
 
-	public SQLCollectioniProcessor( SQLCollectionDefinition t ) {
+	public SQLCollectionProcessor( SQLCollectionDefinition t ) {
 		super( t );
 	}
 
