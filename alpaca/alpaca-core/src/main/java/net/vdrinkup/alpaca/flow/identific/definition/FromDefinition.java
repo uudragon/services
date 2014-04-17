@@ -7,11 +7,12 @@
 package net.vdrinkup.alpaca.flow.identific.definition;
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import net.vdrinkup.alpaca.configuration.Processor;
-import net.vdrinkup.alpaca.configuration.model.AbstractOutputsDefinition;
+import net.vdrinkup.alpaca.flow.FlowDefinition;
 import net.vdrinkup.alpaca.flow.identific.processor.FromProcessor;
 
 
@@ -22,7 +23,9 @@ import net.vdrinkup.alpaca.flow.identific.processor.FromProcessor;
  * Date Nov 28, 2013
  */
 @XmlRootElement( name = "from" )
-public class FromDefinition extends AbstractOutputsDefinition {
+public class FromDefinition extends FlowDefinition {
+	@XmlID
+	private String id;
 	@XmlAttribute
 	private String uri;
 	@XmlTransient
@@ -52,6 +55,16 @@ public class FromDefinition extends AbstractOutputsDefinition {
 			}
 		}
 		return processor;
+	}
+
+	@Override
+	public String getId() {
+		return this.id;
+	}
+
+	@Override
+	public void setId( String id ) {
+		this.id = id;
 	}
 
 }
