@@ -17,7 +17,6 @@ import javax.xml.bind.annotation.XmlTransient;
 import net.vdrinkup.alpaca.configuration.Processor;
 import net.vdrinkup.alpaca.configuration.model.language.ExpressionDefinition;
 import net.vdrinkup.alpaca.configuration.processor.CatchProcessor;
-import net.vdrinkup.alpaca.flow.identific.definition.ToDefinition;
 
 /**
  * Catch配置定义类
