@@ -72,6 +72,9 @@ public class JsonInDefinition extends MessageInputDefinition implements MessageN
 	
 	protected void afterUnmarshal( Unmarshaller unmarshaller, Object parent ) {
 		this.mappers = new HashMap< String, MessageNode >( 16 );
+		if ( getElements() == null ) {
+			return ;
+		}
 		for ( MessageNode element : getElements() ) {
 			mappers.put( element.getName(), element );
 		}

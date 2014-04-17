@@ -15,7 +15,7 @@ package net.vdrinkup.alpaca;
 public class SchemeUtil {
 	
 	public static String getSchemeName( String uri, String scheme ) {
-		int index = uri.indexOf( SchemeConstants.SCHEME_SEPATATOR );
+		int index = uri.indexOf( SchemeConstants.SCHEME_SEPARATOR );
 		String curScheme = uri.substring( 0, index );
 		if ( ! curScheme.equalsIgnoreCase( scheme ) ) {
 			throw new IllegalArgumentException( "Scheme error, expected '" + scheme + "' actual '" + curScheme + "'" );

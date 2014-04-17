@@ -10,7 +10,6 @@ import java.io.ByteArrayOutputStream;
 
 import net.vdrinkup.alpaca.configuration.model.ProcessorDefinition;
 import net.vdrinkup.alpaca.context.DataContext;
-import net.vdrinkup.alpaca.data.DataObject;
 import net.vdrinkup.alpaca.messageset.MessageNode;
 import net.vdrinkup.alpaca.messageset.json.JsonConstants;
 import net.vdrinkup.alpaca.messageset.json.processor.JsonEncoder;
@@ -25,11 +24,6 @@ import net.vdrinkup.alpaca.messageset.json.processor.JsonEncoder;
 public class JsonObjectEncoder implements JsonEncoder {
 	
 	public void encode( DataContext context, MessageNode definition ) throws Exception {
-		DataObject sdo = context.getIn();
-		if ( definition.getBinding() != null && !"".equals( definition.getBinding() ) ) {
-			DataObject subSdo = sdo.getDataObject( definition.getBinding() );
-			context.setIn( subSdo );
-		}
 		final ByteArrayOutputStream baos = context.getOut();
 		baos.write( JsonConstants.L_BRACES );
 		MessageNode el = null;
@@ -41,7 +35,6 @@ public class JsonObjectEncoder implements JsonEncoder {
 			( ( ProcessorDefinition ) el ).createProcessor().process( context );
 		}
 		baos.write( JsonConstants.R_BRACES );
-		context.setIn( sdo );
 	}
 
 }

@@ -35,11 +35,13 @@ public class FromProcessor extends AbstractProcessor< FromDefinition > {
 			try {
 				processor.createProcessor().process( context );
 			} catch ( Exception e ) {
+				LOG.error( e.getMessage(), e );
 				context.setException( e );
 				context.setStatus( ContextStatus.EXCEPTION );
 				break process;
 			}
 		}
+		callback.done( true );
 		return true;
 	}
 

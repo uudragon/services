@@ -15,9 +15,7 @@ import java.util.NoSuchElementException;
 
 import net.vdrinkup.alpaca.Env;
 import net.vdrinkup.alpaca.configuration.ConfigProcessor;
-import net.vdrinkup.alpaca.context.ContextConstants;
-import net.vdrinkup.alpaca.context.ContextStatus;
-import net.vdrinkup.alpaca.context.DataContext;
+import net.vdrinkup.alpaca.flow.FlowDefinition;
 import net.vdrinkup.alpaca.flow.identific.definition.FromDefinition;
 import net.vdrinkup.alpaca.flow.identific.definition.IdentificDefinition;
 
@@ -79,18 +77,12 @@ public class IdentificManager {
 	
 	private Map< String, FromDefinition > registry = new HashMap< String, FromDefinition >( 16 );
 
-	public void identify( DataContext context ) {
-		String fromName = context.getProperty( ContextConstants.FROM_NAME, String.class );
-		FromDefinition fromDef = registry.get( fromName );
-		if ( fromDef == null ) {
+	public FlowDefinition lookup( String fromName ) {
+		FromDefinition from = registry.get( fromName );
+		if ( from == null ) {
 			throw new NoSuchElementException( "No such definition named [" + fromName + "]" );
 		}
-		try {
-			fromDef.createProcessor().process( context );
-		} catch ( Exception e ) {
-			LOG.error( e.getMessage(), e );
-			context.setException( e );
-			context.setStatus( ContextStatus.EXCEPTION );
-		}
+		return from;
 	}
+
 }

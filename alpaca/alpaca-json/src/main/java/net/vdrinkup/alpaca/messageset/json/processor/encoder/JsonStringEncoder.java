@@ -8,6 +8,7 @@ package net.vdrinkup.alpaca.messageset.json.processor.encoder;
 
 import java.io.ByteArrayOutputStream;
 
+import net.vdrinkup.alpaca.context.ContextConstants;
 import net.vdrinkup.alpaca.context.DataContext;
 import net.vdrinkup.alpaca.data.DataObject;
 import net.vdrinkup.alpaca.messageset.MessageNode;
@@ -31,7 +32,8 @@ public class JsonStringEncoder extends JsonNullEncoder {
 			super.encode( context, definition );
 		} else {
 			baos.write( JsonConstants.D_QUOTATION_MARK );
-			baos.write( value.getBytes() );
+	 		final String charset = context.getProperty( ContextConstants.CHARSET, String.class );
+			baos.write( value.getBytes( charset ) );
 			baos.write( JsonConstants.D_QUOTATION_MARK );
 		}
 	}

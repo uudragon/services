@@ -26,5 +26,5 @@ public class HttpRequestConfig extends RequestConfig {
 	public void setContentType(IContentType contentType) {
 		this.contentType = (HttpContentType) contentType;
 	}
-	
+
 }

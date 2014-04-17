@@ -19,11 +19,13 @@ public class SchemeConstants {
 	
 	public class Prefix {
 		
-		public static final String PROTOCOL_PREFIX = PROTOCOL_SCHEME + SCHEME_SEPATATOR;
+		public static final String PROTOCOL_PREFIX = PROTOCOL_SCHEME + SCHEME_SEPARATOR;
 		
-		public static final String FLOW_PREFIX = FLOW_SCHEME + SCHEME_SEPATATOR;
+		public static final String FLOW_PREFIX = FLOW_SCHEME + SCHEME_SEPARATOR;
 		
-		public static final String DMS_PREFIX = DMS_SCHEME + SCHEME_SEPATATOR;
+		public static final String DMS_PREFIX = DMS_SCHEME + SCHEME_SEPARATOR;
+		
+		public static final String SERVICE_PREFIX = SERVICE_SCHEME + SCHEME_SEPARATOR;
 	 
 		private Prefix(){};
 		
@@ -35,8 +37,10 @@ public class SchemeConstants {
 	
 	public static final String DMS_SCHEME = "dms";
 	
+	public static final String SERVICE_SCHEME = "service";
+	
 	public static final String LOCATION_SEPARATOR = "/";
 
-	public static final String SCHEME_SEPATATOR = ":";
+	public static final String SCHEME_SEPARATOR = ":";
 	
 }

@@ -42,10 +42,11 @@ public class FlowProcessor extends AbstractProcessor< FlowDefinition > {
 					|| getDefinition().getOutputs().size() == 0 ) {
 				break process;
 			}
-			for ( ProcessorDefinition definition : getDefinition().getOutputs() ) {
+ 			for ( ProcessorDefinition definition : getDefinition().getOutputs() ) {
 				try {
 					definition.createProcessor().process( context );
 				} catch ( Exception e ) {
+					LOG.error( e.getMessage(), e );
 					context.setException( e );
 					context.setStatus( ContextStatus.EXCEPTION );
 					break process;

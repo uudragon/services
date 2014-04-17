@@ -66,9 +66,9 @@ public class ProtocolInstanceManager {
 		final ProtocolPlugin plugin = ProtocolPluginManager.getInstance().lookup( config.getProtocolName() );
 		Class< Connection > clazz = null;
 		if ( config.getSide().equals( SideEnum.SERVER ) ) {
-			clazz = ( Class< Connection > ) Class.forName( plugin.getServerConnection() );
+			clazz = ( Class< Connection > ) Class.forName( plugin.getServerConnection().trim() );
 		} else {
-			clazz = ( Class< Connection > ) Class.forName( plugin.getClientConnection() );
+			clazz = ( Class< Connection > ) Class.forName( plugin.getClientConnection().trim() );
 		}
 		Connection connection = clazz.newInstance();
 		connection.setConfig( config );

@@ -15,11 +15,11 @@ package net.vdrinkup.alpaca.messageset.json.processor.encoder;
 public class JsonShortEncoder extends JsonNumberEncoder {
 
 	@Override
-	protected byte[] encode( Number number ) throws Exception {
+	protected byte[] encode( Number number, String charset ) throws Exception {
 		if ( number == null ) {
 			number = getDefaultValue();
 		} 
-		byte[] result = String.valueOf( number.shortValue() ).getBytes();
+		byte[] result = String.valueOf( number.shortValue() ).getBytes( charset );
 		return result;
 	}
 

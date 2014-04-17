@@ -61,6 +61,7 @@ public class ServiceProcessor extends AbstractProcessor< ServiceDefinition > {
 			try {
 				entry.getInstance().invoke( context );
 			} catch ( InvokeException e ) {
+				LOG.error( e.getMessage(), e );
 				context.setException( new NoSuchObjectException(
 						"Can not found service named ["
 								+ getDefinition().getId()

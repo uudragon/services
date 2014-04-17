@@ -30,7 +30,7 @@ public class SQLResultSetDefinition extends ProcessorDefinition {
 	@XmlAttribute
 	private String binding;
 	@XmlAttribute
-	private int fetchSize;
+	private boolean fetchOne;
 	@XmlElement( name = "element" )
 	private List< SQLElementDefinition > elements = new LinkedList< SQLElementDefinition >();
 	@XmlElement( name = "collection" )
@@ -46,12 +46,12 @@ public class SQLResultSetDefinition extends ProcessorDefinition {
 		this.binding = binding;
 	}
 
-	public int getFetchSize() {
-		return fetchSize;
+	public boolean isFetchOne() {
+		return fetchOne;
 	}
 
-	public void setFetchSize(int fetchSize) {
-		this.fetchSize = fetchSize;
+	public void setFetchOne( boolean fetchOne ) {
+		this.fetchOne = fetchOne;
 	}
 
 	public List< SQLElementDefinition > getElements() {

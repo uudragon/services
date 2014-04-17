@@ -9,3 +9,8 @@ WatershadDefinition
 WhenDefinition
 SetInBodyDefinition
 PropertyDefinition
+TryDefinition
+CatchDefinition
+FinallyDefinition
+ThrowExceptionDefinition
+ToDefinition

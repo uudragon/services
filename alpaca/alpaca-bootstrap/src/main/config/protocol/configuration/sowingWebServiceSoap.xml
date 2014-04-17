@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<protocol.ws xmlns="http://wms.jd.com/configuration" mode="s" side="server" ioDirection="i/o" autoRun="true">
-	<commons charset="UTF-8"/>
-	<request uri="http://0.0.0.0:8026/services/simpleWebServiceSoap">
-		<endpoint namespace="http://wms3.360buy.com" name="SimpleWebServiceSoap" wsdlLocation="file://${INSTALL_PATH}/conf/protocol/resources/simpleWebServiceSoap.wsdl" port="SimpleWebServiceImplPort"/>
-	</request>
-</protocol.ws>

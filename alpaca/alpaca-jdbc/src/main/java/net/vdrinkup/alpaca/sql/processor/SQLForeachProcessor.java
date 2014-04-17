@@ -36,6 +36,9 @@ public class SQLForeachProcessor extends
 	protected boolean process( DataContext context, DoneCallback callback ) {
 		final DataObject sdo = context.getIn();
 		final Object value = sdo.get( getDefinition().getBinding() );
+		if ( LOG.isDebugEnabled() ) {
+			LOG.debug( "Current processd value is [{}]", value );
+		}
 		Iterable< ? > iterable;
 		try {
 			iterable = preparedValue( value );

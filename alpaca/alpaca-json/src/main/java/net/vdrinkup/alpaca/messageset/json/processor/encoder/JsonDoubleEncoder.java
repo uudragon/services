@@ -15,11 +15,11 @@ package net.vdrinkup.alpaca.messageset.json.processor.encoder;
 public class JsonDoubleEncoder extends JsonNumberEncoder {
 
 	@Override
-	protected byte[] encode( Number number ) throws Exception {
+	protected byte[] encode( Number number, String charset ) throws Exception {
 		if ( number == null ) {
 			number = getDefaultValue();
 		} 
-		byte[] result = String.valueOf( number.doubleValue() ).getBytes();
+		byte[] result = String.valueOf( number.doubleValue() ).getBytes( charset );
 		return result;
 	}
 

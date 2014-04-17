@@ -46,7 +46,11 @@ public class HttpContextHandler extends ContextHandler {
 		byte[] message;
 		if ( method.equals( HttpMethods.GET ) ) {
 			final String queryString = request.getQueryString();
-			message = queryString.getBytes( getConfig().getCommons().getCharset() );
+			if ( queryString != null ) {
+				message = queryString.getBytes( getConfig().getCommons().getCharset() );
+			} else {
+				message = new byte[]{};
+			}
 		} else {
 			final int messageLen = request.getContentLength();
 			InputStream is = request.getInputStream();
@@ -82,22 +86,18 @@ public class HttpContextHandler extends ContextHandler {
 				.append( "] used [" )
 				.append( endTimestamp - beginTimestamp )
 				.append( "ms]." ).toString() );
-		String respMessage = "";
-		if ( context.getOut() instanceof byte[] ) {
-			final byte[] bytes = context.getOut();
-			respMessage = new String( bytes, getConfig().getCommons().getCharset() );
-		} else if ( context.getOut() instanceof String ) {
-			respMessage = context.getOut();
-		} else {
-			throw new ServletException( "No type of message supported." );
-		}
+		final byte[] bytes = context.getOut();
 		response.addHeader( "Access-Control-Allow-Origin", "*" );
 		response.setCharacterEncoding( getConfig().getCommons().getCharset() );
 		final StringBuilder contentType = new StringBuilder( getConfig().getResponse().getContentType().getContentType() );
 		contentType.append( ";charset=" ).append( getConfig().getCommons().getCharset() );
 		response.setContentType( contentType.toString() );
-		response.setContentLength( respMessage.length() );
-		response.getWriter().write( respMessage );
+		response.setContentLength( bytes.length );
+		if ( LOG.isInfoEnabled() ) {
+			LOG.info( "Current response message is [{}]", new String( bytes, getConfig().getCommons().getCharset() ) );
+		}
+		response.getOutputStream().write( bytes );
+		response.getOutputStream().flush();
 	}
 
 	public HttpProtocolConfig getConfig() {

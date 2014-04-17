@@ -38,6 +38,7 @@ public class JsonListEncoder implements JsonEncoder {
 		}
 		final ByteArrayOutputStream baos = context.getOut();
 		baos.write( JsonConstants.L_BRACKET );
+		final Object in = context.getIn();
 		List< Object > list;
 		if ( context.getIn() instanceof List ) {
 			list = context.getIn();
@@ -67,7 +68,7 @@ public class JsonListEncoder implements JsonEncoder {
 				}
 			}
 		}
-		context.setIn( list );
+		context.setIn( in );
 		baos.write( JsonConstants.R_BRACKET );
 	}
 

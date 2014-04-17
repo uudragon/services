@@ -57,12 +57,12 @@ public class DefaultFlowEngine implements FlowEngine {
 
 	@Override
 	public void incoming( DataContext context ) {
-		IdentificManager.getInstance().identify( context );
 		if ( ContextStatus.EXCEPTION.equals( context.getStatus() ) ) {
 			//TODO process exception
 		}
+		final String fromName = context.getProperty( ContextConstants.FROM_NAME, String.class );
+		final FlowDefinition flow = IdentificManager.getInstance().lookup( fromName );
 		final Mode mode = context.getProperty( ContextConstants.EXECUTE_MODE, Mode.class );
-		final FlowDefinition flow = context.getProperty( ContextConstants.FLOW, FlowDefinition.class );
 		context.setProperty( ContextConstants.TIMEOUT, 
 				Env.getInstance().getProperty( Env.Keys.EXECUTE_TIMEOUT, Integer.class ) );
 		FlowWorker worker = null;
@@ -73,16 +73,10 @@ public class DefaultFlowEngine implements FlowEngine {
 		} else {
 			worker = new SyncFlowWorker( threadPool, flow, context );
 		}
-		if ( LOG.isDebugEnabled() ) {
-			LOG.debug( "Flow [{}] working...", worker.getDefinition().getId() );
-		}
 		final long beginTimestamp = System.currentTimeMillis();
-//		final boolean completed = worker.execute();
 		worker.execute();
 		final long endTimestamp = System.currentTimeMillis();
 		LOG.info( "Execute context [{}] used [{}ms]", context.getId(), ( endTimestamp - beginTimestamp ) );
-//		if ( ! completed ) {
-//		}
 	}
 
 	@Override

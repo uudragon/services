@@ -24,6 +24,8 @@ public interface MessageNode {
 	
 	public int getLength();
 	
+	public String getFormat();
+	
 	public String getDefaultValue();
 	
 	public boolean isRequired();

@@ -30,6 +30,8 @@ public abstract class AbstractBaseAttrDefinition extends ProcessorDefinition {
 	@XmlAttribute
 	protected int length;
 	@XmlAttribute
+	protected String format;
+	@XmlAttribute
 	protected String defaultValue;
 	@XmlAttribute
 	protected boolean required;
@@ -100,6 +102,14 @@ public abstract class AbstractBaseAttrDefinition extends ProcessorDefinition {
 
 	public void setProcessor( Processor processor ) {
 		this.processor = processor;
+	}
+
+	public String getFormat() {
+		return format;
+	}
+
+	public void setFormat( String format ) {
+		this.format = format;
 	}
 
 }

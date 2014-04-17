@@ -14,11 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import net.vdrinkup.alpaca.Env;
-import net.vdrinkup.alpaca.SchemeConstants;
 import net.vdrinkup.alpaca.commons.resource.ResourceFilter;
 import net.vdrinkup.alpaca.commons.resource.ResourceScanner;
 import net.vdrinkup.alpaca.commons.resource.impl.FileResourceScanner;
@@ -27,6 +23,9 @@ import net.vdrinkup.alpaca.flow.FlowDefinition;
 import net.vdrinkup.alpaca.flow.FlowExistException;
 import net.vdrinkup.alpaca.flow.FlowManager;
 import net.vdrinkup.alpaca.flow.FlowNotFoundException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -97,7 +96,6 @@ public class DefaultFlowManager implements FlowManager {
 				definition = configProcessor.read( fis );
 				String id = file.getName().substring( 0,
 						file.getName().indexOf( "." ) );
-				id = SchemeConstants.Prefix.FLOW_PREFIX.concat( id );
 				definition.setId( id );
 				this.register( definition );
 				LOG.info( "Flow [{}] has been register successfully.", id );

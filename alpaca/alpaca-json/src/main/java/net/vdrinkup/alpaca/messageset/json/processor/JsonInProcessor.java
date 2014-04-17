@@ -30,15 +30,22 @@ import net.vdrinkup.alpaca.messageset.json.definition.JsonInDefinition;
  */
 public class JsonInProcessor extends AbstractProcessor< JsonInDefinition > {
 
-
 	public JsonInProcessor( JsonInDefinition t ) {
 		super( t );
 	}
 
 	@Override
 	protected boolean process( DataContext context, DoneCallback callback ) {
-		if ( ! ( context.getIn() instanceof byte[] ) ) {
-			throw new IllegalArgumentException( "The in of DataContext must be an instance of byte[]" );
+		if ( context.getIn() == null ) {
+			callback.done( true );
+			return true;
+		} else if ( ! ( context.getIn() instanceof byte[] ) ) {
+			Exception e = new IllegalArgumentException( "The in of DataContext must be an instance of byte[]" );
+			LOG.error( e.getMessage(), e );
+			context.setException( e );
+			context.setStatus( ContextStatus.EXCEPTION );
+			callback.done( true );
+			return true;
 		}
 		ByteBuffer buffer = ByteBuffer.wrap( ( byte[] ) context.getIn() );
 		context.setIn( buffer );
@@ -54,6 +61,7 @@ public class JsonInProcessor extends AbstractProcessor< JsonInDefinition > {
 		if ( LOG.isDebugEnabled() ) {
 			LOG.debug( "The sdo is [{}]", context.getOut().toString() );
 		}
+		callback.done( true );
 		return true;
 	}
 	
@@ -182,6 +190,7 @@ public class JsonInProcessor extends AbstractProcessor< JsonInDefinition > {
 				curBuff.write( n );
 			}
 		}
+		target = target == null ? DataFactory.INSTANCE.create() : target;
 		context.setOut( target );
 	}
 	
@@ -243,7 +252,7 @@ public class JsonInProcessor extends AbstractProcessor< JsonInDefinition > {
 			}
 			pre = n;
 		}
-		return target;
+		return target == null ? new LinkedList< Object >() : target;
 	}
 
 }

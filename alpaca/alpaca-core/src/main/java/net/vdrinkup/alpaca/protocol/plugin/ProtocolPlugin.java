@@ -100,7 +100,7 @@ public class ProtocolPlugin {
 		if ( configProcessor == null ) {
 			synchronized ( this ) {
 				if ( configProcessor == null ) {
-					Class< ? > clazz =  Class.forName( this.processorClazz );
+					Class< ? > clazz =  Class.forName( this.processorClazz.trim() );
 					configProcessor = ( ConfigProcessor ) clazz.newInstance();
 				}
 			}

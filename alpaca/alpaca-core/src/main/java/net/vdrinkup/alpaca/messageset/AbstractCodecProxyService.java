@@ -6,6 +6,9 @@
  *******************************************************************************/
 package net.vdrinkup.alpaca.messageset;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import net.vdrinkup.alpaca.context.ContextConstants;
 import net.vdrinkup.alpaca.context.DataContext;
 import net.vdrinkup.alpaca.messageset.definition.MessageDefinition;
@@ -20,6 +23,8 @@ import net.vdrinkup.alpaca.service.ServiceException;
  * Date Dec 25, 2013
  */
 public abstract class AbstractCodecProxyService implements ProxyService {
+	
+	protected static Logger LOG = LoggerFactory.getLogger( AbstractCodecProxyService.class );
 
 	@Override
 	public void invoke( DataContext context ) throws InvokeException {
@@ -33,6 +38,9 @@ public abstract class AbstractCodecProxyService implements ProxyService {
 		}
 		final String key = fromName.concat( "_" ).concat( toName );
 		final MessageDefinition definition = MessageSetConfigManager.getInstance().lookup( key );
+		if ( LOG.isDebugEnabled() ) {
+			LOG.debug( "Current sdo is [{}]", context.getIn() );
+		}
 		process( definition, context );
 	}
 

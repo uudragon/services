@@ -8,10 +8,12 @@ package net.vdrinkup.alpaca.messageset.json.processor;
 
 import java.awt.List;
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import net.vdrinkup.alpaca.messageset.json.processor.encoder.JsonBooleanEncoder;
+import net.vdrinkup.alpaca.messageset.json.processor.encoder.JsonDateEncoder;
 import net.vdrinkup.alpaca.messageset.json.processor.encoder.JsonDecimalEncoder;
 import net.vdrinkup.alpaca.messageset.json.processor.encoder.JsonDoubleEncoder;
 import net.vdrinkup.alpaca.messageset.json.processor.encoder.JsonFloatEncoder;
@@ -50,6 +52,8 @@ public class JsonEncoderSimpleFactory {
 		INSTANCE.encoders.put( JsonNullEncoder.NULL, new JsonNullEncoder() );
 		INSTANCE.encoders.put( Boolean.class.getSimpleName().toLowerCase(), new JsonBooleanEncoder() );
 		INSTANCE.encoders.put( BigDecimal.class.getSimpleName().toLowerCase(), new JsonDecimalEncoder() );
+		INSTANCE.encoders.put( JsonDecimalEncoder.SIMPLE_NAME.toLowerCase(), new JsonDecimalEncoder() );
+		INSTANCE.encoders.put( Date.class.getSimpleName().toLowerCase(), new JsonDateEncoder() );
 	}
 	
 	private JsonEncoderSimpleFactory() {

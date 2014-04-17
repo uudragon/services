@@ -39,6 +39,7 @@ public abstract class AbstractCodec< T extends ProcessorDefinition > extends Abs
 							"MESSAGE_DIRECTION is error. expected [IN/OUT], actual " + direction );
 			}
 		} catch ( Exception e ) {
+			LOG.error( e.getMessage(), e );
 			context.setException( e );
 			context.setStatus( ContextStatus.EXCEPTION );
 		}

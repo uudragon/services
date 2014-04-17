@@ -48,7 +48,6 @@ public class SQLResultSetProcessor extends
 				16 );
 		DataObject out = context.getOut();
 		DataObject item;
-		int index = 0;
 		CacheKey cacheKey = null;
 		try {
 			while ( rs.next() ) {
@@ -78,14 +77,8 @@ public class SQLResultSetProcessor extends
 						list.add( collect );
 					}
 				}
-
-				if ( getDefinition().getFetchSize() != 0
-						&& getDefinition().getFetchSize() <= index ) {
-					break;
-				}
-				index++;
 			}
-			if ( getDefinition().getFetchSize() == 1 ) {
+			if ( getDefinition().isFetchOne() ) {
 				out.set( getDefinition().getBinding(), cacheResultMap.values()
 						.iterator().next() );
 			} else {
@@ -98,8 +91,11 @@ public class SQLResultSetProcessor extends
 		} catch ( Exception e ) {
 			context.setException( e );
 			context.setStatus( ContextStatus.EXCEPTION );
-			callback.done( true );
 		}
+		if ( LOG.isDebugEnabled() ) {
+			LOG.debug( "Current sdo is [{}]", context.getOut() );
+		}
+		callback.done( true );
 		return true;
 	}
 
