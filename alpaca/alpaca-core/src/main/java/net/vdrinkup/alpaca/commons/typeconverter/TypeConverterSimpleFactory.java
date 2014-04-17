@@ -4,15 +4,18 @@
 package net.vdrinkup.alpaca.commons.typeconverter;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import net.vdrinkup.alpaca.commons.typeconverter.impl.BigDecimalConverter;
 import net.vdrinkup.alpaca.commons.typeconverter.impl.BooleanConverter;
+import net.vdrinkup.alpaca.commons.typeconverter.impl.DateTimeConverter;
 import net.vdrinkup.alpaca.commons.typeconverter.impl.DoubleConverter;
 import net.vdrinkup.alpaca.commons.typeconverter.impl.FloatConverter;
 import net.vdrinkup.alpaca.commons.typeconverter.impl.IntegerConverter;
 import net.vdrinkup.alpaca.commons.typeconverter.impl.LongConverter;
+import net.vdrinkup.alpaca.commons.typeconverter.impl.ShortConverter;
 import net.vdrinkup.alpaca.commons.typeconverter.impl.StringConverter;
 
 
@@ -28,6 +31,8 @@ public class TypeConverterSimpleFactory {
 	
 	static {
 		TYPE_REGISTER = new HashMap< String, Converter >();
+		TYPE_REGISTER.put( short.class.getSimpleName().toLowerCase(), new ShortConverter() );
+		TYPE_REGISTER.put( Short.class.getSimpleName().toLowerCase(), new ShortConverter() );
 		TYPE_REGISTER.put( boolean.class.getSimpleName().toLowerCase(), new BooleanConverter() );
 		TYPE_REGISTER.put( Boolean.class.getSimpleName().toLowerCase(), new BooleanConverter() );
 		TYPE_REGISTER.put( int.class.getSimpleName().toLowerCase(), new IntegerConverter() );
@@ -40,7 +45,8 @@ public class TypeConverterSimpleFactory {
 		TYPE_REGISTER.put( Double.class.getSimpleName().toLowerCase(), new DoubleConverter() );
 		TYPE_REGISTER.put( String.class.getSimpleName().toLowerCase(), new StringConverter() );
 		TYPE_REGISTER.put( BigDecimal.class.getSimpleName().toLowerCase(), new BigDecimalConverter() );
-		TYPE_REGISTER.put( BigDecimalConverter.DECIMAL_SIMPLE_NAME, new BigDecimalConverter() );		
+		TYPE_REGISTER.put( BigDecimalConverter.DECIMAL_SIMPLE_NAME, new BigDecimalConverter() );
+		TYPE_REGISTER.put( Date.class.getSimpleName().toLowerCase(), new DateTimeConverter() );	
 	}
 	
 	public static final TypeConverterSimpleFactory getInstance() {
