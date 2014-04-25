@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="sql" 
+	from="flow:goods2R_saved"
+	to="dms:bam/goods2R_saved">
+	<in binding="saved_effect_count"/>
+	<out>
+		<insert>
+			INSERT INTO BAM.T_GOODS_2R_RECORD (
+					ORDER_NO, 
+					AGENT_CODE, 
+					OPT_TYPE, 
+					GOODS_CODE, 
+					GOODS_NAME, 
+					GOODS_QTY, 
+				  SHIPMENT_NO, 
+				  EXPRESS_ORDERS_NO, 
+				  REASON, 
+				  CREATER,
+				  CREATE_TIME, 
+					YN)
+			VALUES (
+					<foreach binding="products" separator=",">
+				    	<element binding="order_no" type="string" />
+				    	<element binding="agent_code" type="string" />
+				    	<element binding="opt_type" type="tinyint" />
+				    	<element binding="goods_code" type="string" />
+				    	<element binding="goods_name" type="string" />
+				    	<element binding="goods_qty" type="int" />
+				    	<element binding="shipment_no" type="string" />
+				    	<element binding="express_orders_no" type="string" />
+				    	<element binding="reason" type="string" />
+				    	<element binding="creater" type="string" />
+				    	now(),
+				    	0
+          </foreach>
+			)
+		</insert>
+	</out>
+</messageset>

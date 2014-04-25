@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="sql" 
+	from="flow:coupon-uud_saved"
+	to="dms:bam/coupon-uud_saved">
+	<in binding="saved_effect_count"/>
+	<out>
+		<insert>
+			INSERT INTO BAM.T_GRANT_COUPONCODE_UUD (
+				GRANT_DATE,
+				APPLY_QTY,
+				QUOTA_QTY,
+				ACCU_QTY,
+				GRANT_QTY,
+				ORDER_QTY,
+				ACCU_ORDER_QTY,
+				USAGE_RATE,
+				CREATE_TIME,
+				YN)
+			VALUES (
+					<element binding="grant_date" type="string" />
+					<element binding="apply_qty" type="int" />
+					<element binding="quota_qty" type="int" />
+					<element binding="accu_qty" type="int" />
+					<element binding="grant_qty" type="int" />
+					<element binding="order_qty" type="int" />
+					<element binding="accu_order_qty" type="int" />
+					<element binding="usage_rate" type="decimal" />
+					now(),
+					0	
+			)
+		</insert>
+	</out>
+</messageset>

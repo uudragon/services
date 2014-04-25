@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="sql" 
+	from="flow:orders_saved"
+	to="dms:bam/orders_details_insert">
+	<in binding="saved_effect_count"/>
+	<out>
+		<insert>
+			INSERT INTO BAM.T_ORDERS_DETAILS (
+              ORDER_NO,
+              PRODUCT_CODE,
+              VALID_DATE,
+              QTY,
+              BULK,
+              WEIGHT,
+              STATUS
+      )
+			VALUES
+      <foreach binding="details" separator=",">
+      (
+          <element binding="orderNo" type="string" />
+          <element binding="productCode" type="int" />
+          <element binding="validDate" type="string" />
+          <element binding="qty" type="int" />
+          <element binding="bulk" type="decimal" />
+          <element binding="weight" type="decimal" />
+          <element binding="status" type="int" />
+			)
+      </foreach>
+		</insert>
+	</out>
+</messageset>

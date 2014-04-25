@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="sql" 
+	from="flow:agent_update"
+	to="dms:bam/agent_update">
+	<in binding="updated_effect_count"/>
+	<out>
+		<update>
+			update T_AGENT
+			<if>
+				<mvel>in['type'] != null</mvel>
+				,<element name="TYPE" binding="type" type="int" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['name'] != null</mvel>
+				,<element name="NAME" binding="name" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['personal_id'] != null</mvel>
+				,<element name="PERSONAL_ID" binding="personal_id" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['license'] != null</mvel>
+				,<element name="LICENSE" binding="license" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['grade'] != null</mvel>
+				,<element name="GRADE" binding="grade" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['area'] != null</mvel>
+				,<element name="AREA" binding="area" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['contract_code'] != null</mvel>
+				,<element name="CONTRACT_CODE" binding="contract_code" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['leal_person'] != null</mvel>
+				,<element name="LEAL_PERSON" binding="leal_person" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['registered_capital'] != null</mvel>
+				,<element name="REGISTERED_CAPITAL" binding="registered_capital" type="decimal" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['begin_time'] != null</mvel>
+				<element name="BEGIN_TIME" binding="begin_time" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['end_time'] != null</mvel>
+				,<element name="END_TIME" binding="end_time" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['contact'] != null</mvel>
+				,<element name="CONTACT" binding="contact" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['address'] != null</mvel>
+				,<element name="ADDRESS" binding="address" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['remark'] != null</mvel>
+				,<element name="REMARK" binding="remark" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['meet'] != null</mvel>
+				,<element name="MEET" binding="meet" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['check'] != null</mvel>
+				,<element name="CHECK" binding="check" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['disable_time'] != null</mvel>
+				,<element name="DISABLE_TIME" binding="disable_time" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['cause'] != null</mvel>
+				,<element name="CAUSE" binding="cause" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['status'] != null</mvel>
+				,<element name="STATUS" binding="status" type="int" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['yn'] != null</mvel>
+				,<element name="YN" binding="yn" type="int" symbol="="/>
+			</if>
+			where id = <element binding="ID" type="string" />
+		</update>
+	</out>
+</messageset>

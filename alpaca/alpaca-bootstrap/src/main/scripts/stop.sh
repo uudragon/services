@@ -17,4 +17,4 @@ if [ "$1" = "jpda" ];then
 	fi
 	shift
 fi
-$JAVA_HOME/bin/java $JPDA_OPT $JAVA_OPT -jar $CUR_INSTALL_DIR/wms-sowing-bootstrap-1.0.0-SNAPSHOT.jar STOP
+$JAVA_HOME/bin/java $JPDA_OPT $JAVA_OPT -jar $CUR_INSTALL_DIR/alpaca-bootstrap-${maven.current.version}.jar STOP

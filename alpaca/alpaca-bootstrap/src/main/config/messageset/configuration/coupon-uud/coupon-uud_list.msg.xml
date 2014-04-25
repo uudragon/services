@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="json" 
+	from="protocol:bam.channel/coupon-uud_list"
+	to="flow:coupon-uud_list">
+	<in>
+		<element name="pageNo" binding="pageNo" type="int"/>
+		<element name="pageSize" binding="pageSize" type="int"/>
+	</in>
+	<out binding="coupons-uud">
+			<element name="ID" binding="id" type="long" />
+			<element name="GRANT_DATE" binding="grant_date" type="string" />
+			<element name="APPLY_QTY" binding="apply_qty" type="int" />
+			<element name="QUOTA_QTY" binding="quota_qty" type="int" />
+			<element name="ACCU_QTY" binding="accu_qty" type="int" />
+			<element name="GRANT_QTY" binding="grant_qty" type="int" />
+			<element name="ORDER_QTY" binding="order_qty" type="int" />
+			<element name="ACCU_ORDER_QTY" binding="accu_order_qty" type="int" />
+			<element name="USAGE_RATE" binding="usage_rate" type="decimal" />
+			<element name="CREATE_TIME" binding="create_time" type="string" />
+			<element name="YN" binding="yn" type="tinyint"/>
+	</out>
+</messageset>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" from="flow:orders_saved"
+	type="sql" to="dms:bam/orders_status_update">
+	<in binding="update_effect_count"/>
+	<out>
+		<update>
+			UPDATE BAM.T_ORDERS 
+      SET
+        <if>
+            <mvel>in['newStatus'] != null</mvel>
+            <element name="STATUS" binding="newStatus" type="int" symbol="="/>,
+        </if>
+        <if>
+            <mvel>in['updateUser'] != null</mvel>
+            <element name="UPDATE_USER" binding="updateUser" type="string" symbol="="/>,
+        </if>
+        UPDATE_TIME=now()
+      WHERE
+        <element name="STATUS" binding="oldStatus" type="int" symbol="="/>
+      AND
+        YN=0
+		</update>
+	</out>
+</messageset>

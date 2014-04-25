@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="json" 
+	from="protocol:bam.channel/shipmentD_query"
+	to="flow:shipmentD_query">
+	<in>
+			<element name="ID" binding="id" type="long" />
+			<element name="SHIPMENT_NO" binding="shipment_no" type="string" />
+			<element name="GOODS_CODE" binding="goods_code" type="string" />
+    	<element name="GOODS_NAME" binding="goods_name" type="int" />
+    	<element name="BARCODE" binding="barcode" type="string" />
+   		<element name="YN" binding="yn" type="int" />
+	</in>
+	<out>
+		<element name="success" binding="success" type="boolean"/>
+		<element name="errorMessage" binding="errorMessage" type="string"/>
+	</out>
+</messageset>

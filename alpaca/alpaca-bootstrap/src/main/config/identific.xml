@@ -3,4 +3,119 @@
 	<from uri="protocol:bam.channel/consumer_saved">
 		<to uri="flow:consumer_saved" mode="sync"/>
 	</from>
+	<from uri="protocol:bam.channel/consumer_list">
+		<to uri="flow:consumer_list" mode="sync"/>
+	</from>
+	
+	
+	<from uri="protocol:bam.channel/shipment_saved">
+		<to uri="flow:shipment_saved" mode="sync"/>
+	</from>
+	<from uri="protocol:bam.channel/shipment_delete">
+		<to uri="flow:shipment_delete" mode="sync"/>
+	</from>
+	<from uri="protocol:bam.channel/shipment_update">
+		<to uri="flow:shipment_update" mode="sync"/>
+	</from>
+	<from uri="protocol:bam.channel/shipment_query">
+		<to uri="flow:shipment_query" mode="sync"/>
+	</from>
+	<from uri="protocol:bam.channel/shipment_queryOrderCount">
+		<to uri="flow:shipment_queryOrderCount" mode="sync"/>
+	</from>
+	
+	
+	<from uri="protocol:bam.channel/shipmentD_saved">
+		<to uri="flow:shipmentD_saved" mode="sync"/>
+	</from>
+	<from uri="protocol:bam.channel/shipmentD_update">
+		<to uri="flow:shipmentD_update" mode="sync"/>
+	</from>
+	<from uri="protocol:bam.channel/shipmentD_query">
+		<to uri="flow:shipmentD_query" mode="sync"/>
+	</from>
+	
+	
+	<from uri="protocol:bam.channel/product_saved">
+		<to uri="flow:product_saved" mode="sync"/>
+	</from>
+	<from uri="protocol:bam.channel/product_delete">
+		<to uri="flow:product_delete" mode="sync"/>
+	</from>
+	<from uri="protocol:bam.channel/product_update">
+		<to uri="flow:product_update" mode="sync"/>
+	</from>
+	<from uri="protocol:bam.channel/product_query">
+		<to uri="flow:product_query" mode="sync"/>
+	</from>
+	
+	<from uri="protocol:bam.channel/productD_saved">
+		<to uri="flow:productD_saved" mode="sync"/>
+	</from>
+	<from uri="protocol:bam.channel/productD_delete">
+		<to uri="flow:productD_delete" mode="sync"/>
+	</from>
+	<from uri="protocol:bam.channel/productD_update">
+		<to uri="flow:productD_update" mode="sync"/>
+	</from>
+	<from uri="protocol:bam.channel/productD_query">
+		<to uri="flow:productD_query" mode="sync"/>
+	</from>
+	
+	<from uri="protocol:bam.channel/goods_saved">
+		<to uri="flow:goods_saved" mode="sync"/>
+	</from>
+	<from uri="protocol:bam.channel/goods_update">
+		<to uri="flow:goods_update" mode="sync"/>
+	</from>
+	<from uri="protocol:bam.channel/goods_query">
+		<to uri="flow:goods_query" mode="sync"/>
+	</from>
+	
+	<from uri="protocol:bam.channel/goods2R_saved">
+		<to uri="flow:goods2R_saved" mode="sync"/>
+	</from>
+	<from uri="protocol:bam.channel/goods2R_update">
+		<to uri="flow:goods2R_update" mode="sync"/>
+	</from>
+	<from uri="protocol:bam.channel/goods2R_query">
+		<to uri="flow:goods2R_query" mode="sync"/>
+	</from>
+	
+	<from uri="protocol:bam.channel/agent_saved">
+		<to uri="flow:agent_saved" mode="sync"/>
+	</from>
+	<from uri="protocol:bam.channel/agent_delete">
+		<to uri="flow:agent_delete" mode="sync"/>
+	</from>
+	<from uri="protocol:bam.channel/agent_update">
+		<to uri="flow:agent_update" mode="sync"/>
+	</from>
+	<from uri="protocol:bam.channel/agent_query">
+		<to uri="flow:agent_query" mode="sync"/>
+	</from>
+	<from uri="protocol:bam.channel/agent_queryAgentCount">
+		<to uri="flow:agent_queryAgentCount" mode="sync"/>
+	</from>
+	<from uri="protocol:bam.channel/agent_list">
+		<to uri="flow:agent_list" mode="sync"/>
+	</from>
+	<from uri="protocol:bam.channel/uudCouponcode_query">
+		<to uri="flow:uudCouponcode_query" mode="sync"/>
+	</from>
+	
+	
+	<from uri="protocol:bam.channel/contract_saved">
+		<to uri="flow:contract_saved" mode="sync"/>
+	</from>
+	<from uri="protocol:bam.channel/contract_delete">
+		<to uri="flow:contract_delete" mode="sync"/>
+	</from>
+	<from uri="protocol:bam.channel/contract_update">
+		<to uri="flow:contract_update" mode="sync"/>
+	</from>
+	<from uri="protocol:bam.channel/contract_query">
+		<to uri="flow:contract_query" mode="sync"/>
+	</from>
+	
 </identific>

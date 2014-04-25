@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="json" 
+	from="protocol:bam.channel/agent_list"
+	to="flow:agent_list">
+	<in>
+		<element name="fromRow" binding="fromRow" type="int"/>
+		<element name="pageSize" binding="pageSize" type="int"/>
+	</in>
+	<out binding="agents">
+		<element name="ID" binding="id" type="long" />
+		<element name="code" binding="code" type="string" />
+		<element name="name" binding="name" type="string" />
+		<element name="license" binding="license" type="string" />
+		<element name="grade" binding="grade" type="short" />
+		<element name="area" binding="area" type="string" />
+		<element name="contract_code" binding="contract_code" type="string" />
+		<element name="leal_person" binding="leal_person" type="string" />
+		<element name="type" binding="type" type="int" />
+		<element name="registered_capital" binding="registered_capital" type="decimal" />
+		<element name="begin_time" binding="begin_time" type="date" />
+		<element name="end_time" binding="end_time" type="date" />
+		<element name="contact" binding="contact" type="string" />
+		<element name="address" binding="address" type="string"/>
+		<element name="remark" binding="remark" type="string"/>
+		<element name="meet" binding="meet" type="short"/>
+		<element name="status" binding="status" type="short"/>
+		<element name="check" binding="check" type="string" />
+		<element name="disable_time" binding="disable_time" type="date" />
+		<element name="cause" binding="cause" type="short" />
+		<element name="create_time" binding="create_time" type="date" />
+		<element name="creater" binding="creater" type="string" />
+		<element name="update_time" binding="update_time" type="date"/>
+	</out>
+</messageset>

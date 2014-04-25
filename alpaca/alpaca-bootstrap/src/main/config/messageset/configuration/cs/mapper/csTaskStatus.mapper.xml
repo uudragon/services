@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration"
+	from="flow:task_update" type="sql" to="dms:bam/task_update">
+	<!-- 工单更新配置 更新工单状态、处理结果、处理人、实际处理人、时长等信息 -->
+	<in binding="effectCount" />
+	<out>
+		<update>
+			UPDATE T_TASK_DETAILS
+			SET
+			<element name="TASK_STATUS" binding="taskStatus" type="int"
+				symbol="=" />
+			,
+			DEAL_DATE=now(),
+			<element name="DEAR_RESULT" binding="dearResult" type="string"
+				symbol="=" />
+			,
+			<element name="USER_NO" binding="userNo" type="string"
+				symbol="=" />
+			,
+			<element name="OPER_USER" binding="operUser" type="string"
+				symbol="=" />
+			,
+			<element name="DURATION" binding="duration" type="decimal"
+				symbol="=" />
+			WHERE
+			<element name="TASK_NO" binding="taskNo" type="string"
+				symbol="=" />
+		</update>
+	</out>
+</messageset>

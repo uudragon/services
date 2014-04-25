@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="sql" 
+	from="flow:productD_query"
+	to="dms:bam/productD_query">
+	<in>
+		<resultset binding="productDetails">
+			<element name="ID" binding="id" type="long" />
+			<element name="PRODUCT_CODE" binding="shipment_no" type="string" />
+			<element name="GOODS_CODE" binding="goods_code" type="string" />
+    	<element name="GOODS_QTY" binding="goods_qty" type="int" />
+    	<element name="IS_GIFT" binding="goods_unit" type="int" />
+		</resultset>
+	</in>
+	
+	<out>
+		<select>
+			SELECT 
+				PD.ID, PD.PRODUCT_CODE, PD.GOODS_CODE, PD.GOODS_QTY, PD.IS_GIFT
+			FROM
+				T_PRODUCT_DETAILS PD
+			WHERE
+				YN=0
+				<if>
+					<mvel>in['id'] != null</mvel>
+					AND
+					<element name="PD.ID" binding="id" type="long" symbol="="/>
+				</if>
+				<if>
+          <mvel>in['GOODS_CODE'] != null</mvel>
+          AND
+					<element name="PD.GOODS_CODE" binding="goods_code" type="string" symbol="="/>
+        </if>
+        
+        <if>
+          <mvel>in['PRODUCT_CODE'] != null</mvel>
+          AND
+					<element name="PD.PRODUCT_CODE" binding="product_code" type="string" symbol="="/>
+        </if>
+        
+				<if>
+          <mvel>in[''] != null</mvel>
+          AND
+				<element name="PD.ID" binding="id" type="long"/>
+        </if>
+			)
+		</select>
+	</out>
+</messageset>

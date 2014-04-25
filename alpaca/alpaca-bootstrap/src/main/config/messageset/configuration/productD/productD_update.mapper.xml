@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="sql" 
+	from="flow:productD_update"
+	to="dms:bam/productD_update">
+	<in binding="update_effect_count"/>
+	<out>
+		<update>
+			UPDATE BAM.T_PRODUCT_DETAILS PD 
+			SET 
+				<if>
+          <mvel>in['PRODUCT_CODE'] != null</mvel>
+          <element name="PD.PRODUCT_CODE" binding="product_code" type="int" symbol="="/>,
+        </if>
+        <if>
+          <mvel>in['GOODS_CODE'] != null</mvel>
+          <element name="PD.GOODS_CODE" binding="goods_code" type="string" symbol="="/>,
+        </if>
+        <if>
+          <mvel>in['GOODS_QTY'] != null</mvel>
+          <element name="PD.GOODS_QTY" binding="goods_qty" type="int" symbol="="/>,
+        </if>
+        <if>
+          <mvel>in['IS_GIFT'] != null</mvel>
+          <element name="PD.IS_GIFT" binding="if_gift" type="int" symbol="="/>
+        </if>
+			WHERE 
+			YN=0
+				<if>
+					<mvel>in['id'] != null</mvel>
+					AND
+					<element name="PD.ID" binding="id" type="long" symbol="="/>
+				</if>
+				<if>
+          <mvel>in['PRODUCT_CODE'] != null</mvel>
+          AND <element name="PD.PRODUCT_CODE" binding="product_code" type="string" symbol="="/>,
+        </if>
+        <if>
+          <mvel>in['GOODS_CODE'] != null</mvel>
+          AND <element name="PD.GOODS_CODE" binding="goods_code" type="string" symbol="="/>,
+        </if>
+        <if>
+          <mvel>in['GOODS_QTY'] != null</mvel>
+          AND <element name="PD.GOODS_QTY" binding="goods_qty" type="int" symbol="="/>,
+        </if>
+        <if>
+          <mvel>in['IS_GIFT'] != null</mvel>
+          AND <element name="PD.IS_GIFT" binding="if_gift" type="int" symbol="="/>
+        </if>
+		</update>
+	</out>
+</messageset>

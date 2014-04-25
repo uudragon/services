@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow name="shipment_query"  xmlns="http://alpaca.vdrinkup.net/configuration">
+	<service id="messageInProxyService"/>
+	<dms service="jdbcDmsProxyService" to="dms:bam/shipment_query"/>
+	<setIn key="success" value="true" type="boolean"/>
+	<setIn key="errorMessage" value=""/>
+	<service id="messageOutProxyService"/>	
+</flow>

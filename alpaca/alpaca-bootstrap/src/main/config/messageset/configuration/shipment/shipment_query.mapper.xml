@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="sql" 
+	from="flow:shipment_query"
+	to="dms:bam/shipment_query">
+	<in>
+		<resultset binding="shipments">
+			<element name="ID" binding="id" type="long" />
+		    	<element name="ORDERS_NO" binding="orders_no" type="string" />
+		    	<element name="SHIPMENT_NO" binding="shipment_no" type="string" />
+		    	<element name="SHIPPED_QTY" binding="shipped_qty" type="int" />
+		    	<element name="EXPRESS_CODE" binding="express_code" type="int" />
+		    	<element name="EXPRESS_ORDERS_NO" binding="express_orders_no" type="string" />
+		    	<element name="EXPRESS_NAME" binding="express_name" type="string" />
+		    	<element name="EXPRESS_COST" binding="express_cost" type="decimal" />
+		    	<element name="COURIER" binding="courier" type="string" />
+		    	<element name="COURIER_TEL" binding="courier_tel" type="string" />
+		    	<element name="CREATE_TIME" binding="create_time" type="date" />
+		    	<element name="CREATER" binding="creater" type="string" />
+		    	<element name="UPDATE_TIME" binding="update_time" type="date" />
+		    	<element name="UPDATER" binding="updater" type="string" />
+	   		<element name="YN" binding="yn" type="int" />
+		</resultset>
+	</in>
+	
+	<out>
+		<select>
+			SELECT 
+				S.ID, S.ORDERS_NO, S.SHIPMENT_NO, S.SHIPPED_QTY, S.EXPRESS_CODE, S.EXPRESS_ORDERS_NO, S.EXPRESS_NAME,			
+				S.EXPRESS_COST, S.COURIER, S.COURIER_TEL, S.CREATE_TIME, S.CREATER, S.UPDATE_TIME, S.UPDATER, S.YN
+			FROM
+				T_SHIPMENT S
+			WHERE
+				YN=0
+				<if>
+					<mvel>in['id'] != null</mvel>
+					AND
+					<element name="S.ID" binding="id" type="long" symbol="="/>
+				</if>
+				<if>
+				          <mvel>in['orders_no'] != null</mvel>
+				          AND
+					  <element name="S.ORDERS_NO" binding="orders_no" type="string" symbol="="/>
+			        </if>
+        
+			        <if>
+				          <mvel>in['shipment_no'] != null</mvel>
+				          AND
+					  <element name="S.SHIPMENT_NO" binding="shipment_no" type="string" symbol="="/>
+			        </if>
+        
+				<if>
+				          <mvel>in[''] != null</mvel>
+				          AND
+					  <element name="S.ID" binding="id" type="long"/>
+			        </if>
+		</select>
+	</out>
+</messageset>

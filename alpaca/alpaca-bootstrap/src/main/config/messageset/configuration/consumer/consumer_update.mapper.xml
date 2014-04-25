@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" from="flow:consumer_update"
+	type="sql" to="dms:bam/consumer_update">
+	<in binding="saved_effect_count"/>
+	<out>
+		<update>
+			update T_CONSUMER 
+			<if>
+				<mvel>in['code'] != null</mvel>
+				,<element name="CODE" binding="code" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['type'] != null</mvel>
+				,<element name="TYPE" binding="type" type="int" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['name'] != null</mvel>
+				,<element name="NAME" binding="name" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['sex'] != null</mvel>
+				,<element name="SEX" binding="sex" type="int" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['birthday'] != null</mvel>
+				,<element name="BIRTHDAY" binding="birthday" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['parent'] != null</mvel>
+				,<element name="PARENT" binding="parent" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['p_sex'] != null</mvel>
+				,<element name="P_SEX" binding="p_sex" type="int" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['email'] != null</mvel>
+				,<element name="EMAIL" binding="email" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['province'] != null</mvel>
+				,<element name="PROVINCE" binding="province" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['city'] != null</mvel>
+				,<element name="CITY" binding="city" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['district'] != null</mvel>
+				<element name="DISTRICT" binding="district" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['street'] != null</mvel>
+				,<element name="STREET" binding="street" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['address'] != null</mvel>
+				,<element name="ADDRESS" binding="address" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['post'] != null</mvel>
+				,<element name="POST" binding="post" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['f_phone'] != null</mvel>
+				,<element name="F_PHONE" binding="f_phone" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['c_phone'] != null</mvel>
+				,<element name="C_PHONE" binding="c_phone" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['mobile'] != null</mvel>
+				,<element name="MOBILE" binding="mobile" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['mainPhone'] != null</mvel>
+				,<element name="MAIN_PHONE" binding="mainPhone" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['fax'] != null</mvel>
+				,<element name="FAX" binding="fax" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['status'] != null</mvel>
+				,<element name="STATUS" binding="status" type="int" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['yn'] != null</mvel>
+				,<element name="YN" binding="yn" type="int" symbol="="/>
+			</if>
+			where id = <element binding="province" type="string" />
+		</update>
+	</out>
+</messageset>

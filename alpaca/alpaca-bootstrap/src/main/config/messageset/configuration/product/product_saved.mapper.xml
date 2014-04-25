@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="sql" 
+	from="flow:product_saved"
+	to="dms:bam/product_saved">
+	<in binding="saved_effect_count"/>
+	<out>
+		<insert>
+			INSERT INTO BAM.T_PRODUCT (
+					PRODUCT_CODE,
+					PRODUCT_NAME,
+					PRODUCT_DESC,
+					CREATE_TIME,
+					CREATER,		
+					YN)
+			VALUES (
+					<foreach binding="products" separator=",">
+				    	<element name="PRODUCT_CODE" binding="product_code" type="string" />
+				    	<element name="PRODUCT_NAME" binding="product_name" type="string" />
+				    	<element name="PRODUCT_DESC" binding="product_desc" type="string" />
+				    	now(),
+				    	<element name="CREATER" binding="creater" type="string" />
+				    	0
+          </foreach>
+			)
+		</insert>
+	</out>
+</messageset>

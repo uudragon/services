@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="json" 
+	from="protocol:bam.channel/coupon-agent_query"
+	to="flow:coupon-agent_query">
+	<in>
+			<element name="ID" binding="id" type="long" />
+	</in>
+	<out>
+			<element name="ID" binding="id" type="long" />
+			<element name="APPLY_DATE" binding="apply_date" type="string" />
+			<element name="AREA" binding="area" type="string" />
+			<element name="AGENT_CODE" binding="agent_code" type="string" />
+			<element name="AGENT_NAME" binding="agent_name" type="string" />
+			<element name="AGENT_GRADE" binding="agent_grade" type="tinyint" />
+			<element name="REMARK" binding="remark" type="string" />
+			<element name="APPLY_QTY" binding="apply_qty" type="int" />
+			<element name="QUOTA_QTY" binding="quota_qty" type="int" />
+			<element name="ACCU_QTY" binding="accu_qty" type="int" />
+			<element name="GRANT_QTY" binding="grant_qty" type="int" />
+			<element name="ORDER_QTY" binding="order_qty" type="int" />
+			<element name="ACCU_ORDER_QTY" binding="accu_order_qty" type="int" />
+			<element name="USAGE_RATE" binding="usage_rate" type="decimal" />
+			<element name="CREATE_TIME" binding="create_time" type="string" />
+			<element name="YN" binding="yn" type="tinyint"/>
+	</out>
+</messageset>

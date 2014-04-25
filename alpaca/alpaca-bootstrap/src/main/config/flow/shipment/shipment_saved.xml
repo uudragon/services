@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow name="shipment_saved"  xmlns="http://alpaca.vdrinkup.net/configuration">
+	<service id="messageInProxyService"/>
+	
+	<transacted dms="bam" isolation="ISOLATION_READ_COMMITTED">
+		<dms service="jdbcDmsProxyService" to="dms:bam/shipment_saved"/>
+		<dms service="jdbcDmsProxyService" to="dms:bam/shipmentD_saved"/>
+	</transacted>
+
+	<setIn key="success" value="true" type="boolean"/>
+	<setIn key="errorMessage" value=""/>
+	<service id="messageOutProxyService"/>	
+</flow>

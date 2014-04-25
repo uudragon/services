@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="json" 
+	from="protocol:bam.channel/shipment_query"
+	to="flow:shipment_query">
+	<in>
+		<element name="ID" binding="id" type="long" />
+		<element name="ORDERS_NO" binding="orders_no" type="string" />
+    		<element name="SHIPMENT_NO" binding="shipment_no" type="string" />
+    		<element name="EXPRESS_CODE" binding="express_code" type="int" />
+    		<element name="EXPRESS_ORDERS_NO" binding="express_orders_no" type="string" />
+	</in>
+	<out binding="shipments">
+		<element name="id" binding="id" type="long" />
+	    	<element name="orders_no" binding="orders_no" type="string" />
+	    	<element name="shipment_no" binding="shipment_no" type="string" />
+	    	<element name="shipped_qty" binding="shipped_qty" type="int" />
+	    	<element name="express_code" binding="express_code" type="int" />
+	    	<element name="express_name" binding="express_name" type="string" />
+	    	<element name="express_orders_no" binding="express_orders_no" type="string" />
+	    	<element name="express_cost" binding="express_cost" type="decimal" />
+	    	<element name="courier" binding="courier" type="string" />
+	    	<element name="courier_tel" binding="courier_tel" type="string" />
+	    	<element name="create_time" binding="create_time" type="date" />
+	    	<element name="creater" binding="creater" type="string" />
+	    	<element name="update_time" binding="update_time" type="date" />
+	    	<element name="updater" binding="updater" type="string" />
+   		<element name="yn" binding="yn" type="int" />
+	</out>
+</messageset>

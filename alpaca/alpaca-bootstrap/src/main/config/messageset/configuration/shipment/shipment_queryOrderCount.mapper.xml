@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="sql" 
+	from="flow:shipment_queryOrderCount"
+	to="dms:bam/shipment_queryOrderCount">
+	<in>
+		<resultset binding="orderCount" fetchOne="true">
+			<element name="ORDERS_COUNT" binding="ordersCount" type="int" />
+			<element name="SALES_AMOUNT" binding="salesAmount" type="decimal" />
+			<element name="ACCU_ORDERS_COUNT" binding="accuOrdersCount" type="int" />
+			<element name="ACCU_SALES_AMOUNT" binding="accuSalesAmount" type="decimal" />
+		</resultset>
+	</in>
+	
+	<out>
+		<select>
+			SELECT count(A.id) as ACCU_ORDERS_COUNT, ifnull(sum(A.AMOUNT),0) as ACCU_SALES_AMOUNT, B.ORDERS_COUNT, B.SALES_AMOUNT
+			FROM T_ORDERS A,(
+				SELECT count(id) as ORDERS_COUNT, ifnull(sum(AMOUNT),0) as SALES_AMOUNT
+				FROM T_ORDERS
+				WHERE yn=0 and date_format(create_time,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d')
+			)B
+		</select>
+	</out>
+</messageset>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration"
+	from="flow:task_query" type="sql" to="dms:bam/task_query">
+	<!-- 查询工单信息，并根据传入的beginIndex与fetchSize获取响应的数据数。 此配置可用于按状态领取工单或按状态查询工单记录 -->
+	<in>
+		<resultset binding="tasks">
+			<element name="TASK_NO" binding="taskNo" type="string" />
+			<element name="TASK_DATE" binding="taskDate" type="string" />
+			<element name="TASK_TYPE" binding="taskType" type="int" />
+			<element name="TASK_STATUS" binding="taskStatus" type="int" />
+			<element name="CUSTMER_CODE" binding="custmerCode" type="string" />
+			<element name="HOPE_DATE" binding="hopeDate" type="date" />
+			<element name="DEAL_DATE" binding="dealDate" type="date" />
+			<element name="DEAR_RESULT" binding="dearResult" type="string" />
+			<element name="CHANNEL" binding="channel" type="int"
+				defaultValue="1" />
+			<element name="USER_NO" binding="userNo" type="string" />
+			<element name="OPER_USER" binding="operUser" type="string" />
+			<element name="DURATION" binding="duration" type="decimal" />
+		</resultset>
+	</in>
+	<out>
+		<select>
+			SELECT
+			TD.TASK_NO AS TASK_NO,
+			TD.TASK_DATE AS TASK_DATE,
+			TD.TASK_TYPE AS TASK_TYPE,
+			TD.TASK_STATUS AS TASK_STATUS,
+			TD.CUSTMER_CODE AS CUSTMER_CODE,
+			TD.HOPE_DATE AS HOPE_DATE,
+			TD.DEAL_DATE AS DEAL_DATE,
+			TD.DEAR_RESULT AS DEAR_RESULT,
+			TD.CHANNEL AS CHANNEL,
+			TD.USER_NO AS USER_NO,
+			TD.OPER_USER AS OPER_USER,
+			TD.DURATION AS DURATION
+			FROM
+			T_TASK_DETAILS TD
+			WHERE
+			YN=0
+			<if>
+				<mvel>in['taskType'] != null</mvel>
+				AND
+				<element name="TD.TASK_TYPE" binding="taskType" type="int"
+					symbol="=" />
+			</if>
+			<if>
+				<mvel>in['taskStatus'] != null</mvel>
+				AND
+				<element name="TD.TASK_STATUS" binding="taskStatus" type="int"
+					symbol="=" />
+			</if>
+			<if>
+				<mvel>in['userNo'] != null</mvel>
+				AND
+				<element name="TD.USER_NO" binding="userNo" type="string"
+					symbol="=" />
+			</if>
+			<if>
+				<mvel>in['operUser'] != null</mvel>
+				AND
+				<element name="TD.OPER_USER" binding="operUser" type="int"
+					symbol="=" />
+			</if>
+			<if>
+				<mvel>in['beginIndex'] != null &amp;&amp; in['fetchSize'] != null
+				</mvel>
+				LIMIT
+				<element binding="beginIndex" type="int" />
+				,
+				<element binding="fetchSize" type="int" />
+			</if>
+
+		</select>
+	</out>
+</messageset>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="sql" 
+	from="flow:product_update"
+	to="dms:bam/product_update">
+	<in binding="update_effect_count"/>
+	<out>
+		<update>
+			UPDATE BAM.T_PRODUCT P 
+			SET 
+				<if>
+          <mvel>in['PRODUCT_NAME'] != null</mvel>
+          <element name="P.PRODUCT_NAME" binding="product_name" type="string" symbol="="/>,
+        </if>
+        <if>
+          <mvel>in['PRODUCT_DESC'] != null</mvel>
+          <element name="P.PRODUCT_DESC" binding="product_desc" type="string" symbol="="/>,
+        </if>
+        <if>
+          <mvel>in['UPDATER'] != null</mvel>
+          <element name="P.UPDATER" binding="updater" type="string" symbol="="/>,
+        </if>
+        UPDATE_TIME = now()
+			WHERE 
+			YN=0
+				<if>
+					<mvel>in['id'] != null</mvel>
+					AND
+					<element name="P.ID" binding="id" type="long" symbol="="/>
+				</if>
+				<if>
+          <mvel>in['PRODUCT_CODE'] != null</mvel>
+          AND
+					<element name="P.PRODUCT_CODE" binding="product_code" type="string" symbol="="/>
+        </if>
+		</update>
+	</out>
+</messageset>

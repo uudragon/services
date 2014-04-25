@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow name="get_task"  xmlns="http://alpaca.vdrinkup.net/configuration">
+	<service id="messageInProxyService"/>
+	<setIn key="beginIndex" value="1" type="int"/>
+	<setIn key="fetchSize" value="1" type="int"/>
+	<dms service="jdbcDmsProxyService" to="dms:bam/task_queryByStatus"/>
+	<if>
+		<mvel>in['tasks'] != null &amp;&amp; in['tasks'].size() == 1</mvel>
+		<setIn key="tasks" value="${tasks[0]}"/>
+		<dms service="jdbcDmsProxyService" to="dms:bam/getTask"/>
+	</if>
+	<service id="messageOutProxyService"/>	
+</flow>

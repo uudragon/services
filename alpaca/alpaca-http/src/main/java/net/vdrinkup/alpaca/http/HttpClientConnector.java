@@ -13,6 +13,8 @@ import net.vdrinkup.alpaca.protocol.definition.ProtocolConfig;
 public class HttpClientConnector implements Connection {
 	
 	private ProtocolConfig config;
+	
+	private boolean running;
 
 	@Override
 	public < T extends ProtocolConfig > void setConfig( T config ) {
@@ -27,14 +29,12 @@ public class HttpClientConnector implements Connection {
 
 	@Override
 	public boolean isShutdown() {
-		// TODO Auto-generated method stub
-		return false;
+		return ! running;
 	}
 
 	@Override
 	public boolean isStartup() {
-		// TODO Auto-generated method stub
-		return false;
+		return running;
 	}
 
 	@Override
@@ -45,19 +45,16 @@ public class HttpClientConnector implements Connection {
 
 	@Override
 	public < T, R > R send( T t ) throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void start() throws Exception {
-		// TODO Auto-generated method stub
+	public synchronized void start() throws Exception {
 		
 	}
 
 	@Override
-	public void stop() throws Exception {
-		// TODO Auto-generated method stub
+	public synchronized void stop() throws Exception {
 		
 	}
 

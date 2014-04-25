@@ -58,13 +58,18 @@ public class TryProcessor implements Processor {
 	 * @param context
 	 */
 	private void processFinally( DataContext context ) throws Exception {
-		finallyClause.createProcessor().process( context );
+		if ( finallyClause != null ) {
+			finallyClause.createProcessor().process( context );
+		}
 	}
 
 	/**
 	 * @param context
 	 */
 	private void processCatch( DataContext context ) throws Exception  {
+		if ( catchClauses == null ) {
+			return;
+		}
 		for ( CatchDefinition catchClause : catchClauses ) {
 			catchClause.createProcessor().process( context );
 		}

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="sql" 
+	from="flow:coupon-uud_saved"
+	to="dms:bam/coupon-uud_query">
+	<in>
+		<resultset binding="coupons-uud">
+			<element name="ID" binding="id" type="long" />
+			<element name="GRANT_DATE" binding="grant_date" type="string" />
+			<element name="APPLY_QTY" binding="apply_qty" type="int" />
+			<element name="QUOTA_QTY" binding="quota_qty" type="int" />
+			<element name="ACCU_QTY" binding="accu_qty" type="int" />
+			<element name="GRANT_QTY" binding="grant_qty" type="int" />
+			<element name="ORDER_QTY" binding="order_qty" type="int" />
+			<element name="ACCU_ORDER_QTY" binding="accu_order_qty" type="int" />
+			<element name="USAGE_RATE" binding="usage_rate" type="decimal" />
+			<element name="CREATE_TIME" binding="create_time" type="string" />
+			<element name="YN" binding="yn" type="tinyint"/>
+		</resultset>
+	</in>
+	<out>
+		<select>
+			SELECT 
+				U.ID,U.GRANT_DATE,U.APPLY_QTY,U.QUOTA_QTY,U.ACCU_QTY,U.GRANT_QTY,U.ORDER_QTY,U.ACCU_ORDER_QTY,U.USAGE_RATE,U.CREATE_TIME,U.YN
+			FROM
+				T_GRANT_COUPONCODE_UUD U
+			WHERE
+				YN=0
+				<if>
+					<mvel>in['id'] != null</mvel>
+					AND
+					<element name="U.ID" binding="id" type="long" symbol="="/>
+				</if>
+				<if>
+          <mvel>in['grant_date'] != null</mvel>
+          AND
+					<element name="U.GRANT_DATE" binding="grant_date" type="string" symbol="="/>
+        </if>
+				<if>
+          <mvel>in[''] != null</mvel>
+          AND
+					<element name="U.ID" binding="id" type="long"/>
+        </if>
+		</select>
+	</out>
+</messageset>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="sql" 
+	from="flow:shipment_update"
+	to="dms:bam/shipment_update">
+	<in binding="update_effect_count"/>
+	<out>
+		<update>
+			UPDATE BAM.T_SHIPMENT S 
+			SET 
+				<if>
+          <mvel>in['ORDERS_NO'] != null</mvel>
+          <element name="S.ORDERS_NO" binding="order_no" type="string" symbol="="/>,
+        </if>
+        <if>
+          <mvel>in['SHIPPED_QTY'] != null</mvel>
+          <element name="S.SHIPPED_QTY" binding="shipped_qty" type="int" symbol="="/>,
+        </if>
+        <if>
+          <mvel>in['UPDATER'] != null</mvel>
+          <element name="S.UPDATER" binding="updater" type="string" symbol="="/>,
+        </if>
+        UPDATE_TIME = now()
+			WHERE 
+			YN=0
+				<if>
+					<mvel>in['id'] != null</mvel>
+					AND
+					<element name="S.ID" binding="id" type="long" symbol="="/>
+				</if>
+				<if>
+          <mvel>in['ORDERS_NO'] != null</mvel>
+          AND
+					<element name="S.ORDERS_NO" binding="order_no" type="string" symbol="="/>
+        </if>
+		</update>
+	</out>
+</messageset>

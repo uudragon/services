@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="sql" 
+	from="flow:coupon-agent_update"
+	to="dms:bam/coupon-agent_update">
+	<in binding="updated_effect_count"/>
+	<out>
+		<update>
+			update T_GRANT_COUPONCODE_AGENT
+			<if>
+				<mvel>in['order_qty'] != null</mvel>
+				,<element name="ORDER_QTY" binding="order_qty" type="int" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['accu_order_qty'] != null</mvel>
+				,<element name="ACCU_ORDER_QTY" binding="accu_order_qty" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['usage_rate'] != null</mvel>
+				,<element name="USAGE_RATE" binding="usage_rate" type="string" symbol="="/>
+			</if>
+			where id = <element binding="ID" type="string" />
+		</update>
+	</out>
+</messageset>

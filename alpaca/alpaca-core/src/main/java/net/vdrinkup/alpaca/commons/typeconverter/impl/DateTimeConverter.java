@@ -230,6 +230,9 @@ public class DateTimeConverter extends AbstractConverter {
 
 	@Override
 	protected Object convertToType( Object value ) throws Exception {
+		if ( value == null ) {
+			return null;
+		}
 		Class< ? > sourceType = value.getClass();
 		if ( value instanceof java.sql.Timestamp ) {
 			java.sql.Timestamp timestamp = ( java.sql.Timestamp ) value;

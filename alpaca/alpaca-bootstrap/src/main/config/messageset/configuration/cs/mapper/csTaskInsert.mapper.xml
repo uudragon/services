@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" from="flow:task_insert"
+	type="sql" to="dms:bam/task_insert">
+	<!-- 
+ 		工单插入配置文件，用于向数据库中插入工单信息
+ 	-->
+	<in binding="effectCount"/>
+	<out>
+		<insert>
+			INSERT INTO T_TASK_DETAILS ( 
+				TASK_NO,
+				TASK_DATE,
+				TASK_TYPE,
+				TASK_STATUS,
+				CUSTMER_CODE,
+				HOPE_DATE,
+				DEAL_DATE,
+				DEAR_RESULT,
+				CHANNEL,
+				USER_NO,
+				OPER_USER,
+				DURATION,
+				YN
+			) VALUES (
+				<element binding="taskNo" type="string"/>,
+				now(),
+				<element binding="taskType" type="int"/>,
+				<element binding="taskStatus" type="int"/>,
+				<element binding="custmerCode" type="string"/>,
+				<element binding="hopeDate" type="date"/>,
+				<element binding="dealDate" type="date"/>,
+				<element binding="dearResult" type="string"/>,
+				<element binding="channel" type="int" defaultValue="1"/>,
+				<element binding="userNo" type="string"/>,
+				<element binding="operUser" type="string"/>,
+				<element binding="duration" type="decimal"/>,
+				0
+			)
+		</insert>
+	</out>
+</messageset>

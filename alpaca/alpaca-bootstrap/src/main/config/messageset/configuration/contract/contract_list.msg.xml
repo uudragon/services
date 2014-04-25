@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="json" 
+	from="protocol:bam.channel/contract_list"
+	to="flow:contract_list">
+	<in>
+		<element name="pageNo" binding="pageNo" type="int"/>
+		<element name="pageSize" binding="pageSize" type="int"/>
+	</in>
+	<out binding="contracts">
+			<element name="ID" binding="id" type="long" />
+			<element name="CODE" binding="code" type="string" />
+			<element name="AGENT_CODE" binding="agent_code" type="string" />
+			<element name="CASH_DEPOSIT" binding="cash_deposit" type="decimal" />
+			<element name="BEGIN_TIME" binding="begin_time" type="string" />
+			<element name="END_TIME" binding="end_time" type="string" />
+			<element name="STATUS" binding="status" type="tinyint"/>
+			<element name="SUMMARY" binding="summary" type="string" />
+			<element name="CREATE_TIME" binding="create_time" type="string" />
+			<element name="CREATER" binding="creater" type="string" />
+			<element name="UPDATE_TIME" binding="update_time" type="string"/>
+			<element name="UPDATER" binding="updater" type="string"/>
+			<element name="YN" binding="yn" type="tinyint"/>
+	</out>
+</messageset>

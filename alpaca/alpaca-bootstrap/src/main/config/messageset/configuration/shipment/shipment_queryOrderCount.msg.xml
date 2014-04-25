@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="json" 
+	from="protocol:bam.channel/shipment_queryOrderCount"
+	to="flow:shipment_queryOrderCount">
+	
+	<in/>
+	<out binding="orderCount">
+		<element name="ordersCount" binding="ordersCount" type="int" />
+		<element name="salesAmount" binding="salesAmount" type="decimal" />
+		<element name="accuOrdersCount" binding="accuOrdersCount" type="int" />
+		<element name="accuSalesAmount" binding="accuSalesAmount" type="decimal" />
+	</out>
+</messageset>

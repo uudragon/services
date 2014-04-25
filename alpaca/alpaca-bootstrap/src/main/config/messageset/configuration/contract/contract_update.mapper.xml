@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="sql" 
+	from="flow:contract_update"
+	to="dms:bam/contract_update">
+	<in binding="updated_effect_count"/>
+	<out>
+		<update>
+			update T_CONTRACT
+			<if>
+				<mvel>in['code'] != null</mvel>
+				,<element name="CODE" binding="code" type="int" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['agent_code'] != null</mvel>
+				,<element name="AGENT_CODE" binding="agent_code" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['cash_deposit'] != null</mvel>
+				,<element name="CASH_DEPOSIT" binding="cash_deposit" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['begin_time'] != null</mvel>
+				<element name="BEGIN_TIME" binding="begin_time" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['end_time'] != null</mvel>
+				,<element name="END_TIME" binding="end_time" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['summary'] != null</mvel>
+				,<element name="SUMMARY" binding="summary" type="string" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['status'] != null</mvel>
+				,<element name="STATUS" binding="status" type="int" symbol="="/>
+			</if>
+			<if>
+				<mvel>in['yn'] != null</mvel>
+				,<element name="YN" binding="yn" type="int" symbol="="/>
+			</if>
+			where id = <element binding="ID" type="string" />
+		</update>
+	</out>
+</messageset>

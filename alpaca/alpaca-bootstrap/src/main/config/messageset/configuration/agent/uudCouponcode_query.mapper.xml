@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="sql" 
+	from="flow:uudCouponcode_query"
+	to="dms:bam/uudCouponcode_query">
+	<in>
+		<resultset binding="couponcodes">
+			<element name="ID" binding="id" type="long" />
+			<element name="GRANT_DATE" binding="grant_date" type="date" />
+			<element name="APPLY_QTY" binding="apply_qty" type="int" />
+			<element name="QUOTA_QTY" binding="quota_qty" type="int" />
+			<element name="ACCU_QTY" binding="accu_qty" type="int" />
+			<element name="GRANT_QTY" binding="grant_qty" type="int" />
+			<element name="ORDER_QTY" binding="order_qty" type="int" />
+			<element name="ACCU_ORDER_QTY" binding="accu_order_qty" type="int" />
+			<element name="USAGE_RATE" binding="usage_rate" type="decimal" />
+			<element name="CREATE_TIME" binding="create_time" type="date" />
+		</resultset>
+	</in>
+	<out>
+		<select>
+			SELECT 
+				C.ID, C.GRANT_DATE, C.APPLY_QTY, C.QUOTA_QTY, C.ACCU_QTY, C.GRANT_QTY, C.ORDER_QTY, C.ACCU_ORDER_QTY, C.USAGE_RATE, C.CREATE_TIME
+			FROM
+				T_GRANT_COUPONCODE_UUD C
+			WHERE
+				YN=0
+				<if>
+					<mvel>in['id'] != null</mvel>
+					AND
+					<element name="A.ID" binding="id" type="long" symbol="="/>
+				</if>
+			)
+		</select>
+	</out>
+</messageset>

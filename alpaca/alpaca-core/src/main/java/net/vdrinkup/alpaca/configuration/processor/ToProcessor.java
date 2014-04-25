@@ -6,7 +6,6 @@
  *******************************************************************************/
 package net.vdrinkup.alpaca.configuration.processor;
 
-import java.net.MalformedURLException;
 import java.net.URI;
 
 import net.vdrinkup.alpaca.DoneCallback;

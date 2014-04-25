@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow name="orders_saved"  xmlns="http://alpaca.vdrinkup.net/configuration">
+	<service id="messageInProxyService"/>
+	<service id="preparedOrdersService"/>
+	<transacted isolation="ISOLATION_READ_COMMITTED">
+		<dms service="jdbcDmsProxyService" to="dms:bam/orders_insert"/>
+		<service id="preparedOrdersService"/>
+		<dms service="jdbcDmsProxyService" to="dms:bam/orders_details_insert"/>
+	</transacted>
+	<service id="messageOutProxyService"/>	
+</flow>

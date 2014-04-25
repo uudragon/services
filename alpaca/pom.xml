@@ -89,7 +89,7 @@
 		<profile>
 			<id>dev</id>
 			<properties>
-				<current.version>1.0.0</current.version>
+				<maven.current.version>${project.version}</maven.current.version>
 				<project.name>uudragon</project.name>
 				
 				<maven.project.main.datasource.url>jdbc:mysql://192.169.170.2:3306/BAM?autoReconnect=true</maven.project.main.datasource.url>
@@ -101,7 +101,7 @@
 		<profile>
 			<id>test</id>
 			<properties>
-				<current.version>1.0.0</current.version>
+				<maven.current.version>${project.version}</maven.current.version>
 				<project.name>uudragon</project.name>
 				
 				<maven.project.main.datasource.url>jdbc:mysql:///co_sowing?autoReconnect=true</maven.project.main.datasource.url>
@@ -113,7 +113,7 @@
 		<profile>
 			<id>release</id>
 			<properties>
-				<current.version>1.0.0</current.version>
+				<maven.current.version>${project.version}</maven.current.version>
 				<project.name>uudragon</project.name>
 				
 				<maven.project.main.datasource.url>jdbc:mysql:///co_sowing?autoReconnect=true</maven.project.main.datasource.url>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="sql" 
+	from="flow:shipmentD_query"
+	to="dms:bam/shipmentD_query">
+	<in>
+		<resultset binding="shipmentDetails">
+			<element name="ID" binding="id" type="long" />
+			<element name="SHIPMENT_NO" binding="shipment_no" type="string" />
+			<element name="GOODS_CODE" binding="goods_code" type="string" />
+    	<element name="GOODS_NAME" binding="goods_name" type="int" />
+    	<element name="GOODS_UNIT" binding="goods_unit" type="string" />
+    	<element name="BARCODE" binding="barcode" type="string" />
+    	<element name="GOODS_QTY" binding="goods_qty" type="int" />
+    	<element name="ACTUAL_QTY" binding="actual_qty" type="int" />
+    	<element name="GOODS_DESC" binding="goods_desc" type="string" />
+   		<element name="YN" binding="yn" type="int" />
+		</resultset>
+	</in>
+	
+	<out>
+		<select>
+			SELECT 
+				SD.ID, SD.SHIPMENT_NO, SD.GOODS_CODE, SD.GOODS_NAME, SD.GOODS_UNIT, SD.BARCODE, SD.GOODS_QTY, SD.ACTUAL_QTY, SD.GOODS_DESC, SD.YN
+			FROM
+				T_SHIPMENT_DETAILS SD
+			WHERE
+				YN=0
+				<if>
+					<mvel>in['id'] != null</mvel>
+					AND
+					<element name="SD.ID" binding="id" type="long" symbol="="/>
+				</if>
+				<if>
+          <mvel>in['GOODS_CODE'] != null</mvel>
+          AND
+					<element name="SD.GOODS_CODE" binding="goods_code" type="string" symbol="="/>
+        </if>
+        
+        <if>
+          <mvel>in['SHIPMENT_NO'] != null</mvel>
+          AND
+					<element name="SD.SHIPMENT_NO" binding="shipment_no" type="string" symbol="="/>
+        </if>
+        
+				<if>
+          <mvel>in[''] != null</mvel>
+          AND
+				<element name="SD.ID" binding="id" type="long"/>
+        </if>
+			)
+		</select>
+	</out>
+</messageset>

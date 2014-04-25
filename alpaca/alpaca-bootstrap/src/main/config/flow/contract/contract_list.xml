@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow name="contract_list"  xmlns="http://alpaca.vdrinkup.net/configuration">
+	<service id="messageInProxyService"/>
+	<dms service="jdbcDmsProxyService" to="dms:bam/contract_list"/>
+	<service id="messageOutProxyService"/>	
+</flow>

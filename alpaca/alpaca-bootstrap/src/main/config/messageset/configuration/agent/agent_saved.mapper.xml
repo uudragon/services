@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="sql" 
+	from="flow:agent_saved"
+	to="dms:bam/agent_saved">
+	<in binding="saved_effect_count"/>
+	<out>
+		<insert>
+			INSERT INTO BAM.T_AGENT (
+				CODE,
+				NAME,
+				PERSONAL_ID,
+				LICENSE,
+				GRADE,
+				AREA,
+				CONTRACT_CODE,
+				LEAL_PERSON,
+				TYPE,
+				REGISTERED_CAPITAL,
+				BEGIN_TIME,
+				END_TIME,
+				CONTACT,
+				ADDRESS,
+				REMARK,
+				MEET,
+				STATUS,
+				CHECK,
+				DISABLE_TIME,
+				CAUSE,
+				CREATER,
+				CREATER_TIME,
+				YN)
+			VALUES (
+					<element binding="code" type="string" />
+					<element binding="name" type="string" />
+					<element binding="personal_id" type="string" />
+					<element binding="license" type="string" />
+					<element binding="grade" type="tinyint" />
+					<element binding="area" type="string" />
+					<element binding="contract_code" type="string" />
+					<element binding="leal_person" type="string" />
+					<element binding="type" type="int" />
+					<element binding="registered_capital" type="decimal" />
+					<element binding="begin_time" type="string" />
+					<element binding="end_time" type="string" />
+					<element binding="contact" type="string" />
+					<element binding="address" type="string"/>
+					<element binding="remark" type="string"/>
+					<element binding="meet" type="tinyint"/>
+					<element binding="status" type="tinyint"/>
+					<element binding="check" type="string" />
+					<element binding="disable_time" type="string" />
+					<element binding="cause" type="tinyint" />
+					<element binding="creater" type="string" />
+					now(),
+					0	
+			)
+		</insert>
+	</out>
+</messageset>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow name="consumer_saved"  xmlns="http://alpaca.vdrinkup.net/configuration">
+	<service id="messageInProxyService"/>
+	<doTry>
+		<dms service="jdbcDmsProxyService" to="dms:bam/task_update"/>
+		<setIn key="success" value="true" type="boolean"/>
+		<setIn key="errorMessage" value=""/>
+		<doCatch>
+			<excepiton>java.lang.Exception</excepiton>
+			<setIn key="success" value="false" type="boolean"/>
+			<setIn key="errorMessage" value="异常：更新工单状态失败，请重试！如不成功，请与管理员联系！！"/>
+			<service id="messageOutProxyService"/>
+		</doCatch>
+	</doTry>
+	<service id="messageOutProxyService"/>	
+</flow>

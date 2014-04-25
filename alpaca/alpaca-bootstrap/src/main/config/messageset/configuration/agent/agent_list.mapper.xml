@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="sql" 
+	from="flow:agent_list"
+	to="dms:bam/agent_list">
+	<in>
+		<resultset binding="agents">
+			<element name="ID" binding="id" type="long" />
+			<element name="CODE" binding="code" type="string" />
+			<element name="NAME" binding="name" type="string" />
+			<element name="PERSONAL_ID" binding="personal_id" type="string" />
+			<element name="LICENSE" binding="license" type="string" />
+			<element name="GRADE" binding="grade" type="short" />
+			<element name="AREA" binding="area" type="string" />
+			<element name="CONTRACT_CODE" binding="contract_code" type="string" />
+			<element name="LEAL_PERSON" binding="leal_person" type="string" />
+			<element name="TYPE" binding="type" type="int" />
+			<element name="REGISTERED_CAPITAL" binding="registered_capital" type="decimal" />
+			<element name="BEGIN_TIME" binding="begin_time" type="date" />
+			<element name="END_TIME" binding="end_time" type="date" />
+			<element name="CONTACT" binding="contact" type="string" />
+			<element name="ADDRESS" binding="address" type="string"/>
+			<element name="REMARK" binding="remark" type="string"/>
+			<element name="MEET" binding="meet" type="short"/>
+			<element name="STATUS" binding="status" type="short"/>
+			<element name="CHECK" binding="check" type="string" />
+			<element name="DISABLE_TIME" binding="disable_time" type="date" />
+			<element name="CAUSE" binding="cause" type="short" />
+			<element name="CREATE_TIME" binding="create_time" type="date" />
+			<element name="CREATER" binding="creater" type="string" />
+			<element name="UPDATE_TIME" binding="update_time" type="date"/>
+			<element name="UPDATER" binding="updater" type="string"/>
+			<element name="YN" binding="yn" type="short"/>
+		</resultset>
+	</in>
+	<out>
+		<select>
+			SELECT 
+				A.ID,A.CODE,A.NAME,A.PERSONAL_ID,A.LICENSE,A.GRADE,A.AREA,A.CONTRACT_CODE,A.LEAL_PERSON,A.TYPE,A.REGISTERED_CAPITAL,A.BEGIN_TIME,A.END_TIME,
+				A.CONTACT,A.ADDRESS,A.REMARK,A.STATUS,A.MEET,A.CHECK,A.DISABLE_TIME,A.CAUSE,A.CREATE_TIME,A.CREATER,A.UPDATE_TIME,A.UPDATER,A.YN
+			FROM
+				T_AGENT A
+			WHERE
+				YN=0
+			<if>
+				<mvel>in['pageSize'] != null</mvel>
+				limit
+				<if>
+					<mvel>in['fromRow'] != null</mvel>
+					<element name="" binding="fromRow" type="int"/>,
+				</if>
+				<element name="" binding="pageSize" type="int"/>
+			</if>
+		</select>
+	</out>
+</messageset>

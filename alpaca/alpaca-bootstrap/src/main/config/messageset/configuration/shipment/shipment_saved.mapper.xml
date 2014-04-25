@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="sql" 
+	from="flow:shipment_saved"
+	to="dms:bam/shipment_saved">
+	<in binding="saved_effect_count"/>
+	<out>
+		<insert>
+			INSERT INTO BAM.T_SHIPMENT (
+				ORDERS_NO,
+				SHIPMENT_NO, 		
+				SHIPPED_QTY,  		
+				EXPRESS_CODE,			
+				EXPRESS_ORDERS_NO,
+				EXPRESS_NAME,			
+				EXPRESS_COST,			
+				COURIER, 					
+				COURIER_TEL, 
+				CREATER,			
+				CREATE_TIME,
+				YN)
+			VALUES (
+         			<element binding="orders_no" type="string" />,
+	          		<element binding="shipment_no" type="string" />,
+	          		<element binding="shipped_qty" type="int" />,
+	          		<element binding="express_code" type="string" />,
+	          		<element binding="express_orders_no" type="string" />,
+	          		<element binding="express_name" type="string" />,
+				<element binding="express_cost" type="decimal"/>,
+	          		<element binding="courier" type="string" />,
+	          		<element binding="courier_tel" type="string" />,
+	          		<element binding="creater" type="string" />,
+	          		now(),
+	          		0
+			)
+		</insert>
+	</out>
+</messageset>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration"
+	from="protocol:bam.channel/getTask" type="json" to="flow:get_task">
+	<in>
+		<element name="userNo" binding="userNo" type="string" />
+	</in>
+	<out>
+		<element name="success" binding="success" type="boolean" />
+		<element name="errorMessage" binding="errorMessage" type="string" />
+	</out>
+</messageset>

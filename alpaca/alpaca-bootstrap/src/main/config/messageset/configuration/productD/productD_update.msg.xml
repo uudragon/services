@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="json" 
+	from="protocol:bam.channel/productD_update"
+	to="flow:productD_update">
+	<in>
+    	<element name="ID" binding="id" type="int" />
+			<element name="PRODUCT_CODE" binding="product_code" type="string" />
+			<element name="GOODS_CODE" binding="goods_code" type="string" />
+			<element name="GOODS_QTY" binding="goods_qty" type="int" />
+			<element name="IS_GIFT" binding="is_gift" type="int" />
+	</in>
+	<out>
+		<element name="success" binding="success" type="boolean"/>
+		<element name="errorMessage" binding="errorMessage" type="string"/>
+	</out>
+</messageset>

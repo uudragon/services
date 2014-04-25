@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<messageset xmlns="http://alpaca.vdrinkup.net/configuration" from="protocol:bam.channel/consumer_saved"
-	type="json" to="flow:consumer_saved">
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration"
+	from="protocol:bam.channel/consumer_saved" type="json" to="flow:consumer_saved">
 	<in>
 		<element name="id" binding="id" type="long" />
-                <element name="code" binding="code" type="string" />
-                <element name="type" binding="type" type="int" />
-                <element name="name" binding="name" type="string" />
-                <element name="sex" binding="sex" type="int" />
-                <element name="birthday" binding="birthday" type="string" />
-                <element name="parent" binding="parent" type="string" />
-                <element name="p_sex" binding="p_sex" type="int" />
-                <element name="email" binding="email" type="string"/>
+		<element name="code" binding="code" type="string" />
+		<element name="type" binding="type" type="int" />
+		<element name="name" binding="name" type="string" />
+		<element name="sex" binding="sex" type="int" />
+		<element name="birthday" binding="birthday" type="string" />
+		<element name="parent" binding="parent" type="string" />
+		<element name="p_sex" binding="p_sex" type="int" />
+		<element name="email" binding="email" type="string" />
 		<element name="province" binding="province" type="string" />
 		<element name="city" binding="city" type="string" />
 		<element name="district" binding="district" type="string" />
@@ -20,11 +20,11 @@
 		<element name="f_phone" binding="f_phone" type="string" />
 		<element name="c_phone" binding="c_phone" type="string" />
 		<element name="mobile" binding="mobile" type="string" />
-		<element name="mainPhone" binding="mainPhone" type="int"/>
-		<element name="fax" binding="fax" type="string"/>
+		<element name="mainPhone" binding="mainPhone" type="int" />
+		<element name="fax" binding="fax" type="string" />
 	</in>
 	<out>
-		<element name="success" binding="success" type="boolean"/>
-		<element name="errorMessage" binding="errorMessage" type="string"/>
+		<element name="success" binding="success" type="boolean" />
+		<element name="errorMessage" binding="errorMessage" type="string" />
 	</out>
 </messageset>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" from="flow:orders_saved"
+	type="sql" to="dms:bam/orders_insert">
+	<in binding="saved_effect_count"/>
+	<out>
+		<insert>
+			INSERT INTO BAM.T_ORDERS (
+              ORDER_NO,
+              ORDER_TYPE,
+              EFFECTIVE,
+              DEADLINE,
+              CUSTMER_CODE,
+              CUSTMER_NAME,
+              CUSTMER_PHONE,
+              CUSTMER_TEL,
+              CUSTMER_ADDR,
+              HAS_INVOICE,
+              SOURCE,
+              COUPON_CODE,
+              DISCOUNT_AMOUNT,
+              AMOUNT,
+              PAYMENT,
+              STATUS,
+              ORDER_TIME,
+              CREATE_TIME,
+              CREATER,
+              UPDATE_TIME,
+              UPDATER,
+              VALIDITY,
+              YN)
+			VALUES (
+               	<element binding="orderNo" type="string" />,
+                <element binding="orderType" type="int" />,
+                <element binding="effective" type="string" />,
+                <element binding="deadline" type="int" />,
+                <element binding="consumerCode" type="string" />,
+                <element binding="consumerName" type="string" />,
+                <element binding="consumerPhone" type="int" />,
+                <element binding="consumerTel" type="string" />,
+                <element binding="consumerAddr" type="string" />,
+                <element binding="hasInvoice" type="string" />,
+                <element binding="source" type="string" />,
+                <element binding="couponCode" type="string" />,
+                <element binding="discountAmount" type="string" />,
+                <element binding="amount" type="string" />,
+                <element binding="payment" type="string" />,
+                <element binding="status" type="string" />,
+                <element binding="orderTime" type="int"/>,
+                <element binding="createUser" type="string"/>,
+				        now(),
+				        <element binding="updateUser" type="string"/>,
+				        now(),
+                <element binding="validity" type="string"/>,
+				        0	
+			 )
+		</insert>
+	</out>
+</messageset>

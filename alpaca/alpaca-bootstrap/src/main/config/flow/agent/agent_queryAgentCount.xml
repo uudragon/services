@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow name="agent_queryAgentCount"  xmlns="http://alpaca.vdrinkup.net/configuration">
+	<service id="messageInProxyService"/>
+	<dms service="jdbcDmsProxyService" to="dms:bam/agent_queryAgentCount"/>
+	<service id="messageOutProxyService"/>	
+</flow>

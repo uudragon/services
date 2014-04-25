@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="sql" 
+	from="flow:contract_saved"
+	to="dms:bam/contract_saved">
+	<in binding="saved_effect_count"/>
+	<out>
+		<insert>
+			INSERT INTO BAM.T_CONTRACT (
+				CODE,
+				AGENT_CODE,
+				CASH_DEPOSIT,
+				BEGIN_TIME,
+				END_TIME,
+				STATUS,
+				SUMMARY,
+				CREATER,
+				CREATE_TIME,
+				YN)
+			VALUES (
+					<element binding="code" type="string" />
+					<element binding="agent_code" type="string" />
+					<element binding="cash_deposit" type="decimal" />
+					<element binding="begin_time" type="string" />
+					<element binding="end_time" type="string" />
+					<element binding="status" type="tinyint"/>
+					<element binding="summary" type="string" />
+					<element binding="creater" type="string" />
+					now(),
+					0	
+			)
+		</insert>
+	</out>
+</messageset>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" from="flow:consumer_saved"
+	type="sql" to="dms:bam/consumer_saved">
+	<in binding="saved_effect_count"/>
+	<out>
+		<insert>
+			INSERT INTO BAM.T_CONSUMER (
+				CODE,
+				TYPE,
+				NAME,
+				SEX,
+				BIRTHDAY,
+				PARENT,
+				P_SEX,
+				EMAIL,
+				PROVINCE,
+				CITY,
+				DISTRICT,
+				STREET,
+				ADDRESS,
+				POST,
+				F_PHONE,
+				C_PHONE,
+				MOBILE,
+				MAIN_PHONE,
+				FAX,
+				STATUS,
+				CREATE_USER,
+				CREATE_TIME,
+				YN)
+			VALUES (
+               			<element binding="code" type="string" />,
+                		<element binding="type" type="int" />,
+                		<element binding="name" type="string" />,
+                		<element binding="sex" type="int" />,
+                		<element binding="birthday" type="string" />,
+                		<element binding="parent" type="string" />,
+                		<element binding="p_sex" type="int" />,
+				<element binding="email" type="string"/>,
+                		<element binding="province" type="string" />,
+                		<element binding="city" type="string" />,
+                		<element binding="district" type="string" />,
+                		<element binding="street" type="string" />,
+                		<element binding="address" type="string" />,
+                		<element binding="post" type="string" />,
+                		<element binding="f_phone" type="string" />,
+                		<element binding="c_phone" type="string" />,
+                		<element binding="mobile" type="string" />,
+                		<element binding="mainPhone" type="int"/>,
+                		<element binding="fax" type="string"/>,
+				<element binding="status" type="int" defaultValue="0"/>,
+				<element binding="createUser" type="string"/>,
+				now(),
+				0	
+			)
+		</insert>
+	</out>
+</messageset>

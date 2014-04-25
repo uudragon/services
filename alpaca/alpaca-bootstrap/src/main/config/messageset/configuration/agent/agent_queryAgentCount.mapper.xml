@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="sql" 
+	from="flow:agent_queryAgentCount"
+	to="dms:bam/agent_queryAgentCount">
+	<in>
+		<resultset binding="agentCount" fetchOne="true">
+			<element name="ACCU_AGENTS_COUNT" binding="accuAgentsCount" type="int" />
+			<element name="SALES_AMOUNT" binding="salesAmount" type="decimal" />
+			<element name="ACCU_SALES_AMOUNT" binding="accuSalesAmount" type="decimal" />
+			<element name="CUSTERMERS_COUNT" binding="custermersCount" type="int" />
+			<element name="ACCU_CUSTERMERS_COUNT" binding="accuCustermersCount" type="int" />
+		</resultset>
+	</in>
+	
+	<out>
+		<select>
+			SELECT count(A.id) as ACCU_AGENTS_COUNT, 
+				T.SALES_AMOUNT,
+				ifnull(sum(O.AMOUNT),0) as ACCU_SALES_AMOUNT, 
+				C.CUSTERMERS_COUNT,
+				count(distinct(O.CUSTMER_CODE)) as ACCU_CUSTERMERS_COUNT
+			FROM T_AGENT A, T_ORDERS O,
+			(
+				SELECT count(id) as CUSTERMERS_COUNT
+				FROM T_CONSUMER
+				WHERE yn=0 and date_format(create_time,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d')
+			)C,
+			(
+				SELECT ifnull(sum(AMOUNT),0) as SALES_AMOUNT
+				FROM T_ORDERS
+				WHERE yn=0 and date_format(create_time,'%Y-%m-%d') = date_format(now(),'%Y-%m-%d')
+			)T
+		</select>
+	</out>
+</messageset>

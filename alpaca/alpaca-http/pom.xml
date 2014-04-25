@@ -30,5 +30,10 @@
 			<artifactId>jetty-webapp</artifactId>
 			<version>8.1.12.v20130726</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.3.3</version>
+		</dependency>
 	</dependencies>
 </project>

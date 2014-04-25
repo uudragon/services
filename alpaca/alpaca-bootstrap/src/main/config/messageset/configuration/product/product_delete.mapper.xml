@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="sql" 
+	from="flow:product_delete"
+	to="dms:bam/product_delete">
+	<in binding="delete_effect_count"/>
+	<out>
+		<delete>
+			DELETE FROM BAM.T_PRODUCT P
+			WHERE 
+			YN=0
+				<if>
+					<mvel>in['id'] != null</mvel>
+					AND
+					<element name="P.ID" binding="id" type="long" symbol="="/>
+				</if>
+				<if>
+          <mvel>in['PRODUCT_CODE'] != null</mvel>
+          AND
+					<element name="P.PRODUCT_CODE" binding="product_code" type="string" symbol="="/>
+        </if>
+		</delete>
+	</out>
+</messageset>

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<messageset xmlns="http://alpaca.vdrinkup.net/configuration" from="flow:consumer_saved"
-	type="sql" to="dms:bam/consumer_saved">
+<!--
+根据任务状态查询任务数据，用于任务拉去与任务统计。
+-->
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" from="flow:taskstatus_query"
+	type="sql" to="dms:bam/taskstatus_query">
 	<in binding="saved_effect_count"/>
 	<out>
 		<insert>

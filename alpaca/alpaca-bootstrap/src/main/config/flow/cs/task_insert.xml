@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow name="consumer_saved"  xmlns="http://alpaca.vdrinkup.net/configuration">
+	<service id="messageInProxyService"/>
+	<doTry>
+		<uuid binding="taskNo"/>
+		<dms service="jdbcDmsProxyService" to="dms:bam/task_insert"/>
+		<setIn key="success" value="true" type="boolean"/>
+		<setIn key="errorMessage" value=""/>
+		<doCatch>
+			<excepiton>java.lang.Exception</excepiton>
+			<setIn key="success" value="false" type="boolean"/>
+			<setIn key="errorMessage" value="异常：添加工单信息失败！！"/>
+			<service id="messageOutProxyService"/>
+		</doCatch>
+	</doTry>
+	<service id="messageOutProxyService"/>	
+</flow>

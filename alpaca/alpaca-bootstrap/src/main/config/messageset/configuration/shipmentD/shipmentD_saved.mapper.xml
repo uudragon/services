@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="sql" 
+	from="flow:shipment_saved"
+	to="dms:bam/shipmentD_saved">
+	<in binding="saved_effect_count"/>
+	<out>
+		<insert>
+			INSERT INTO BAM.T_SHIPMENT_DETAILS (
+				SHIPMENT_NO, 		
+				GOODS_CODE,  		
+				GOODS_NAME,			
+				GOODS_UNIT,
+				BARCODE,			
+				GOODS_QTY,			
+				ACTUAL_QTY, 					
+				GOODS_DESC,					
+				YN)
+			VALUES (
+			<foreach binding="shipmentDetails" separator=",">
+				<element binding="shipment_no" type="string" />,
+				<element binding="goods_code" type="string" />,
+			    	<element binding="goods_name" type="string" />,
+			    	<element binding="goods_unit" type="string" />,
+			    	<element binding="barcode" type="string" />,
+			    	<element binding="goods_qty" type="int" />,
+			    	<element binding="actual_qty" type="int" />,
+			    	<element binding="goods_desc" type="string" />,
+		          	0
+		        </foreach>
+			)
+		</insert>
+	</out>
+</messageset>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="json" 
+	from="protocol:bam.channel/shipment_delete"
+	to="flow:shipment_delete">
+	<in>
+			<element name="ID" binding="id" type="long" />
+			<element name="ORDERS_NO" binding="orders_no" type="string" />
+    	<element name="SHIPMENT_NO" binding="shipment_no" type="string" />
+    	<element name="EXPRESS_ORDERS_NO" binding="express_orders_no" type="string" />
+	</in>
+	<out>
+		<element name="success" binding="success" type="boolean"/>
+		<element name="errorMessage" binding="errorMessage" type="string"/>
+	</out>
+</messageset>

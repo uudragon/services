@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="sql" 
+	from="flow:goods2R_update"
+	to="dms:bam/goods2R_update">
+	<in binding="update_effect_count"/>
+	<out>
+		<update>
+			UPDATE BAM.T_GOODS_2R_RECORD G 
+			SET 
+				<if>
+          <mvel>in['order_no'] != null</mvel>
+          <element name="G.ORDER_NO" binding="order_no" type="string" symbol="="/>,
+        </if>
+        <if>
+          <mvel>in['agent_code'] != null</mvel>
+          <element name="G.AGENT_CODE" binding="agent_code" type="string" symbol="="/>,
+        </if>
+        <if>
+          <mvel>in['shipment_no'] != null</mvel>
+          <element name="G.SHIPMENT_NO" binding="shipment_no" type="string" symbol="="/>,
+        </if>
+        <if>
+          <mvel>in['express_orders_no'] != null</mvel>
+          <element name="G.EXPRESS_ORDERS_NO" binding="express_orders_no" type="string" symbol="="/>,
+        </if>
+        <if>
+          <mvel>in['goods_qty'] != null</mvel>
+          <element name="G.GOODS_QTY" binding="goods_qty" type="string" symbol="="/>,
+        </if>
+        <if>
+          <mvel>in['updater'] != null</mvel>
+          <element name="G.UPDATER" binding="updater" type="string" symbol="="/>,
+        </if>
+        UPDATE_TIME = now()
+			WHERE 
+			YN=0
+				<if>
+					<mvel>in['id'] != null</mvel>
+					AND
+					<element name="G.ID" binding="id" type="long" symbol="="/>
+				</if>
+				<if>
+          <mvel>in['goods_code'] != null</mvel>
+          AND
+					<element name="G.GOODS_CODE" binding="goods_code" type="string" symbol="="/>
+        </if>
+        <if>
+          <mvel>in['order_no'] != null</mvel>
+          AND
+					<element name="G.ORDER_NO" binding="order_no" type="string" symbol="="/>
+        </if>
+        <if>
+          <mvel>in['agent_code'] != null</mvel>
+          AND
+					<element name="G.AGENT_CODE" binding="agent_code" type="string" symbol="="/>
+        </if>
+        <if>
+          <mvel>in['shipment_no'] != null</mvel>
+          AND
+					<element name="G.SHIPMENT_NO" binding="shipment_no" type="string" symbol="="/>
+        </if>
+        <if>
+          <mvel>in['express_orders_no'] != null</mvel>
+          AND
+					<element name="G.EXPRESS_ORDERS_NO" binding="express_orders_no" type="string" symbol="="/>
+        </if>
+		</update>
+	</out>
+</messageset>

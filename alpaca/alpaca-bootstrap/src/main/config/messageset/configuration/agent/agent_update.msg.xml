@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="json" 
+	from="protocol:bam.channel/agent_update"
+	to="flow:agent_update">
+	<in>
+			<element name="NAME" binding="name" type="string" />
+			<element name="PERSONAL_ID" binding="personal_id" type="string" />
+			<element name="LICENSE" binding="license" type="string" />
+			<element name="GRADE" binding="grade" type="tinyint" />
+			<element name="AREA" binding="area" type="string" />
+			<element name="CONTRACT_CODE" binding="contract_code" type="string" />
+			<element name="LEAL_PERSON" binding="leal_person" type="string" />
+			<element name="TYPE" binding="type" type="int" />
+			<element name="REGISTERED_CAPITAL" binding="registered_capital" type="decimal" />
+			<element name="BEGIN_TIME" binding="begin_time" type="string" />
+			<element name="END_TIME" binding="end_time" type="string" />
+			<element name="CONTACT" binding="contact" type="string" />
+			<element name="ADDRESS" binding="address" type="string"/>
+			<element name="REMARK" binding="remark" type="string"/>
+			<element name="MEET" binding="meet" type="tinyint"/>
+			<element name="STATUS" binding="status" type="tinyint"/>
+			<element name="CHECK" binding="check" type="string" />
+			<element name="DISABLE_TIME" binding="disable_time" type="string" />
+			<element name="CAUSE" binding="cause" type="tinyint" />
+			<element name="CREATER" binding="creater" type="string" />
+			<element name="UPDATER" binding="updater" type="string"/>
+	</in>
+	<out>
+		<element name="success" binding="success" type="boolean"/>
+		<element name="errorMessage" binding="errorMessage" type="string"/>
+	</out>
+</messageset>

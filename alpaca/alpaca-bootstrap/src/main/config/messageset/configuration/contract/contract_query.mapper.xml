@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="sql" 
+	from="flow:contract_query"
+	to="dms:bam/contract_query">
+	<in>
+		<resultset binding="agents">
+			<element name="CODE" binding="code" type="string" />
+			<element name="AGENT_CODE" binding="agent_code" type="string" />
+		</resultset>
+	</in>
+	<out>
+		<select>
+			SELECT 
+				C.ID,C.CODE,C.AGENT_CODE,C.CASH_DEPOSIT,C.BEGIN_TIME,C.END_TIME,
+				C.STATUS,C.SUMMARY,C.CREATE_TIME,C.CREATER,C.UPDATE_TIME,C.UPDATER,C.YN
+			FROM
+				T_CONTRACT C
+			WHERE
+				YN=0
+				<if>
+					<mvel>in['id'] != null</mvel>
+					AND
+					<element name="C.ID" binding="id" type="long" symbol="="/>
+				</if>
+				<if>
+          <mvel>in['code'] != null</mvel>
+          AND
+					<element name="C.CODE" binding="code" type="string" symbol="="/>
+        </if>
+        <if>
+          <mvel>in['agent_code'] != null</mvel>
+          AND
+					<element name="C.AGENT_CODE" binding="agent_code" type="string" symbol="="/>
+        </if>
+				<if>
+          <mvel>in[''] != null</mvel>
+          AND
+					<element name="C.ID" binding="id" type="long"/>
+        </if>
+			)
+		</select>
+	</out>
+</messageset>

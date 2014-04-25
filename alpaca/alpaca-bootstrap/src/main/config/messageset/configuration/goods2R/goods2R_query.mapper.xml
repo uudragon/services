@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageset xmlns="http://alpaca.vdrinkup.net/configuration" type="sql" 
+	from="flow:goods2R_query"
+	to="dms:bam/goods2R_query">
+	<in>
+		<resultset binding="goods2Rs">
+			<element name="ID" binding="id" type="long" />
+    	<element name="ORDER_NO" binding="order_no" type="string" />
+    	<element name="AGENT_CODE" binding="agent_code" type="string" />
+    	<element name="OPT_TYPE" binding="opt_type" type="tinyint" />
+    	<element name="GOODS_CODE" binding="goods_code" type="string" />
+    	<element name="GOODS_NAME" binding="goods_name" type="string" />
+    	<element name="GOODS_QTY" binding="goods_qty" type="int" />
+    	<element name="SHIPMENT_NO" binding="shipment_no" type="string" />
+    	<element name="EXPRESS_ORDERS_NO" binding="express_orders_no" type="string" />
+    	<element name="REASON" binding="reason" type="string" />
+    	<element name="CREATE_TIME" binding="create_time" type="string" />
+    	<element name="CREATER" binding="creater" type="string" />
+    	<element name="UPDATE_TIME" binding="update_time" type="string" />
+    	<element name="UPDATER" binding="updater" type="string" />
+   		<element name="YN" binding="yn" type="tinyint" />
+		</resultset>
+	</in>
+	
+	<out>
+		<select>
+			SELECT G.ID, G.ORDER_NO, G.AGENT_CODE, G.OPT_TYPE, G.GOODS_CODE, G.GOODS_NAME, G.GOODS_QTY, 
+				    G.SHIPMENT_NO, G.EXPRESS_ORDERS_NO, G.REASON, G.CREATE_TIME, G.CREATER, G.UPDATE_TIME, G.UPDATER, G.YN
+			FROM T_GOODS_2R_RECORD G
+			WHERE
+				YN=0
+				<if>
+					<mvel>in['id'] != null</mvel>
+					AND
+					<element name="G.ID" binding="id" type="long" symbol="="/>
+				</if>
+				<if>
+          <mvel>in['order_no'] != null</mvel>
+          AND
+					<element name="G.ORDER_NO" binding="order_no" type="string" symbol="="/>
+        </if>
+        <if>
+          <mvel>in['agent_code'] != null</mvel>
+          AND
+					<element name="G.AGENT_CODE" binding="agent_code" type="string" symbol="="/>
+        </if>
+				<if>
+          <mvel>in['shipment_no'] != null</mvel>
+          AND
+					<element name="G.SHIPMENT_NO" binding="shipment_no" type="string" symbol="="/>
+        </if>
+        <if>
+          <mvel>in['express_orders_no'] != null</mvel>
+          AND
+					<element name="G.EXPRESS_ORDERS_NO" binding="express_orders_no" type="string" symbol="="/>
+        </if>
+        <if>
+          <mvel>in['goods_code'] != null</mvel>
+          AND
+					<element name="G.GOODS_CODE" binding="goods_code" type="string" symbol="="/>
+        </if>
+				<if>
+          <mvel>in[''] != null</mvel>
+          AND
+				<element name="G.ID" binding="id" type="long"/>
+        </if>
+		</select>
+	</out>
+</messageset>
